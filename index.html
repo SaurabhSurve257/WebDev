@@ -2,44 +2,201 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Saurabh's Resume</title>
+    <title>Saurabh Surve - Resume</title>
+
+    <!-- INTERNAL CSS -->
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+
+        .resume {
+            width: 800px;
+            margin: 30px auto;
+            background: #ffffff;
+            padding: 40px; /* invisible border space from all sides */
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 28px;
+        }
+
+        header p {
+            font-size: 14px;
+            margin-top: 8px;
+        }
+
+        header a {
+            text-decoration: none;
+            color: #000;
+        }
+
+        section {
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-size: 18px;
+            border-bottom: 2px solid #000;
+            padding-bottom: 5px;
+            margin-bottom: 10px;
+        }
+
+        h3 {
+            font-size: 15px;
+            margin-bottom: 5px;
+        }
+
+        p {
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        ul {
+            margin: 5px 0 0 20px;
+        }
+
+        li {
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+        table {
+        width: 100%;
+        border-collapse: collapse; /* REQUIRED */
+    }
+
+    th, td {
+        padding: 10px;
+        text-align: left;
+
+        /* FORCE vertical + horizontal lines */
+        border: 2px solid black;
+    }
+
+    th {
+        background-color: #eaeaea;
+    }
+
+    </style>
 </head>
 <body>
-    
 
-    <div class="resume-container" margin=400px>
-    
-      <hgroup align="center">
-        <h1 >Saurabh Surve</h1>
-        <p>GitHub |  Linkedin |  saurabhsurve257@gmail.com |  +91 7057167852</p>
-     </hgroup>
-    
-        <Strong>Summary</Strong><br>
-        <strong>_________________________________________________________________________________________________________________________________________________________________</strong>
-        <p>Entry-level Full Stack Developer with hands-on experience building responsive, user-focused web applications using modern front-end and back-end technologies. Skilled in designing, developing, and deploying
-            scalable solutions, with strong problem-solving abilities and a passion for clean, efficient code, click here.</p>
+<div class="resume">
 
-            <Strong>Education</Strong>
-        <p>2025 - present Advance full stack development program at Up Grad<br>
-            2022 - 2024 M.Sc(C.S.) Degree at Kaveri college (CGPA: 7.5/10)<br>
-            2019 - 2022 B.Sc(C.S.) Degree at Mama saheb Mohol college (CGPA: 8.5/10)</p>
+    <!-- HEADER -->
+    <header>
+        <h1>Saurabh Santosh Surve</h1>
+        <p>
+            <a href="mailto:saurabhsurve257@gmail.com">saurabhsurve257@gmail.com</a> |
+            +91 7057167852 |
+            <a href="https://github.com/SaurabhSurve257" target="_blank">GitHub</a> |
+            <a href="https://www.linkedin.com/in/saurabh-surve-b3b342236" target="_blank">LinkedIn</a>
+        </p>
+    </header>
 
+    <!-- SUMMARY -->
+    <section>
+        <h2>Summary</h2>
+        <p>
+            Entry-level Full Stack Developer with hands-on experience in building responsive and user-focused
+            web applications using modern front-end and back-end technologies. Skilled in designing,
+            developing, and deploying scalable solutions with strong problem-solving abilities and a passion
+            for clean, efficient code.
+        </p>
+    </section>
 
-            <Strong>Internship</Strong>
-        <p><Strong>Designation</Strong>                 Apr 2023 - Sep 2023
-            <p>Junior Full-Stack Developer Intern<p>
-            Technologies: .NET Framework, C, MS SQL Server. Developed and maintained ERP application modules
-            using C and .NET Framework. Implemented frontend, backend business logic and performed CRUD
-            operations with MS SQL Server. Wrote, optimized, and executed SQL queries, stored procedures, and
-            joins for data handling. Assisted in debugging, testing, and bug fixing to improve application performance
-            and stability. Collaborated with senior developers in an team environment to deliver functional features.
-            Gained hands-on experience in full-stack development, enterprise application architecture, and database
-            management.</p>
-            
+    <!-- EDUCATION -->
+    <section>
+        <h2>Education</h2>
+        <!-- <ul>
+            <li><strong>Advance Full Stack Development Program</strong> – UpGrad (2025 – Present)</li>
+            <li><strong>M.Sc. Computer Science</strong> – Kaveri College (2022 – 2024) | CGPA: 7.5/10</li>
+            <li><strong>B.Sc. Computer Science</strong> – Mamasaheb Mohol College (2019 – 2022) | CGPA: 8.5/10</li>
+        </ul> -->
+        <table>
+            <tr>
+                <th>Course</th>
+                <th>Institute</th>
+                <th>Duration</th>
+                <th>Percentage</th>
+            </tr>
     
+            <tr>
+                <td>Advance Full Stack Development Program</td>
+                <td>UpGrad</td>
+                <td>2025 – Present</td>
+                <td>–</td>
+            </tr>
     
-     </div>  
+            <tr>
+                <td>M.Sc. Computer Science</td>
+                <td>Kaveri College</td>
+                <td>2022 – 2024</td>
+                <td>7.5 CGPA</td>
+            </tr>
+    
+            <tr>
+                <td>B.Sc. Computer Science</td>
+                <td>Mamasaheb Mohol College</td>
+                <td>2019 – 2022</td>
+                <td>8.5 CGPA</td>
+            </tr>
+        </table>
+    </section>
+
+    <!-- INTERNSHIP -->
+    <section>
+        <h2>Internship</h2>
+        <h3>Junior Full Stack Developer Intern (Apr 2023 – Sep 2023)</h3>
+        <p><strong>Technologies:</strong> .NET Framework, C, MS SQL Server</p>
+        <ul>
+            <li>Developed and maintained ERP application modules using C and .NET Framework.</li>
+            <li>Implemented frontend and backend business logic with CRUD operations.</li>
+            <li>Wrote and optimized SQL queries, stored procedures, and joins.</li>
+            <li>Assisted in debugging, testing, and improving application performance.</li>
+            <li>Collaborated with senior developers in a team environment.</li>
+        </ul>
+    </section>
+
+    <!-- PROJECTS -->
+    <section>
+        <h2>Projects</h2>
+
+        <h3>Criminal Face Recognition System</h3>
+        <ul>
+            <li>Developed a desktop-based system to digitally store and manage criminal records.</li>
+            <li>Implemented face detection and recognition techniques.</li>
+            <li>Designed a secure database for long-term data storage.</li>
+            <li>Reduced manual paperwork and improved record retrieval.</li>
+        </ul>
+
+        <h3>Blood Bank Management System</h3>
+        <ul>
+            <li>Designed and developed a system to manage blood donor and recipient information.</li>
+            <li>Implemented inventory tracking and blood group availability.</li>
+            <li>Enabled fast search and retrieval of blood units.</li>
+            <li>Automated record management to reduce paperwork.</li>
+        </ul>
+    </section>
+
+    <!-- SKILLS -->
+    <section>
+        <h2>Technical Skills</h2>
+        <p><strong>Programming Languages:</strong> Java, C, HTML, CSS</p>
+        <p><strong>Technologies & Tools:</strong> .NET, Bootstrap, MS SQL Server, MySQL, Maven, Git, GitHub</p>
+    </section>
+
+</div>
+
 </body>
 </html>
