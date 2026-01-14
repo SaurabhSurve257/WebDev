@@ -1,0 +1,89 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f4f6f8;
+    margin: 0;
+    padding: 20px;
+}
+
+h1, h2 {
+    text-align: center;
+}
+
+.section {
+    background: white;
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 1000px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.code {
+    background: #eee;
+    padding: 10px;
+    font-family: monospace;
+    margin-bottom: 10px;
+}
+
+/* FLEX CONTAINER */
+.flex-box {
+    display: flex;
+    border: 2px dashed #999;
+    padding: 10px;
+}
+
+/* FLEX ITEMS */
+.item {
+    background: #4caf50;
+    color: white;
+    padding: 20px;
+    margin: 5px;
+    border-radius: 4px;
+    text-align: center;
+}
+
+/* FLEX PROPERTY CLASSES */
+.column {
+    flex-direction: column;
+}
+
+.center {
+    justify-content: center;
+}
+
+.align-center {
+    align-items: center;
+    height: 150px;
+}
+
+.wrap {
+    flex-wrap: wrap;
+}
+
+.gap {
+    gap: 20px;
+}
+
+.grow1 {
+    flex-grow: 1;
+}
+
+.grow2 {
+    flex-grow: 2;
+}
+
+.basis {
+    flex-basis: 150px;
+}
+
+.tall {
+    height: 150px;
+}
+
+.self-end {
+    align-self: flex-end;
+}
+
+.footer {
+    text-align: center;
+}

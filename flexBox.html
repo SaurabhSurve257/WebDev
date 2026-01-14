@@ -2,58 +2,127 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>CSS Flexbox Complete Guide</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div style="display: flex; flex-direction: row; height: 200px; border: 2px solid black; align-items: center;">
-        <div style="flex: 1; background-color: lightblue; border: 2px solid red;align-items: center;display: flex;align-self: baseline;">
-            Flex Item 1
-        </div>
-        <div style="flex: 2; background-color: lightgreen; border: 2px solid red;">
-            Flex Item 2
-        </div>
-        <div style="flex: 1; background-color: lightcoral; border: 2px solid red;align-self: flex-start;">
-            Flex Item 3
-        </div>
+
+<h1>CSS Flexbox Complete Guide</h1>
+
+<div class="section">
+    <h2>1. display: flex</h2>
+    <p>Turns a container into a flex container.</p>
+    <div class="code">display: flex;</div>
+    <div class="flex-box">
+        <div class="item">1</div>
+        <div class="item">2</div>
+        <div class="item">3</div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>2. flex-direction</h2>
+    <p>Defines the main axis direction.</p>
+
+    <h4>Row (default)</h4>
+    <div class="flex-box">
+        <div class="item">A</div>
+        <div class="item">B</div>
+        <div class="item">C</div>
     </div>
 
-    <div style="display: flex; flex-direction: column; height: 300px; border: 2px solid black; justify-content: space-between; margin-top: 20px;">
-        <div style="background-color: lightyellow; border: 2px solid red; width: 50px; height: 50px;">
-            Flex Item A
-        </div>
-        <div style="background-color: lightgray; border: 2px solid red;width: 50px; height: 50px; align-self: center;">
-            Flex Item B
-        </div>
-        <div style="background-color: lightpink; border: 2px solid red;width: 50px; height: 50px;align-self: self-end;">
-            Flex Item C
-        </div>
-
+    <h4>Column</h4>
+    <div class="flex-box column">
+        <div class="item">A</div>
+        <div class="item">B</div>
+        <div class="item">C</div>
     </div>
+</div>
 
-    <div style="display: flex; flex-direction: row; height: 150px; border: 2px solid black; align-items: flex-start; margin-top: 20px;">
-        <div style="background-color: lightcyan; border: 2px solid red; width: 100px;">
-            Flex Item X
-        </div>
-        <div style="background-color: lightgoldenrodyellow; border: 2px solid red; width: 100px;">
-            Flex Item Y
-        </div>
-        <div style="background-color: lightseagreen; border: 2px solid red; width: 100px; align-self: stretch;">
-            Flex Item Z
-        </div>
-    </div>
+<div class="section">
+    <h2>3. justify-content</h2>
+    <p>Aligns items along the main axis.</p>
+    <div class="code">justify-content: center;</div>
 
-    <div style="display: flex; flex-direction: column; height: 250px; border: 2px solid black; justify-content: center; margin-top: 20px;">
-        <div style="background-color: lightsteelblue; border: 2px solid red; width: 60px; height: 60px;">
-            Flex Item M
-        </div>
-        <div style="background-color: lightsalmon; border: 2px solid red; width: 60px; height: 60px; align-self: flex-end;">
-            Flex Item N
-        </div>
-        <div style="background-color: lightkhaki; border: 2px solid red; width: 60px; height: 60px; align-self: center;">
-            Flex Item O
-        </div>  
+    <div class="flex-box center">
+        <div class="item">1</div>
+        <div class="item">2</div>
+        <div class="item">3</div>
     </div>
-  
-    </body>
+</div>
+
+<div class="section">
+    <h2>4. align-items</h2>
+    <p>Aligns items along the cross axis.</p>
+
+    <div class="flex-box align-center">
+        <div class="item">1</div>
+        <div class="item">2</div>
+        <div class="item">3</div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>5. flex-wrap</h2>
+    <p>Controls wrapping of items.</p>
+
+    <div class="flex-box wrap">
+        <div class="item">1</div>
+        <div class="item">2</div>
+        <div class="item">3</div>
+        <div class="item">4</div>
+        <div class="item">5</div>
+        <div class="item">6</div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>6. gap</h2>
+    <p>Creates space between flex items.</p>
+
+    <div class="flex-box gap">
+        <div class="item">A</div>
+        <div class="item">B</div>
+        <div class="item">C</div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>7. flex-grow</h2>
+    <p>Controls how items grow.</p>
+
+    <div class="flex-box">
+        <div class="item grow1">1</div>
+        <div class="item grow2">2</div>
+        <div class="item grow1">3</div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>8. flex-basis</h2>
+    <p>Sets initial size of items.</p>
+
+    <div class="flex-box">
+        <div class="item basis">150px</div>
+        <div class="item basis">150px</div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>9. align-self</h2>
+    <p>Overrides align-items for a single item.</p>
+
+    <div class="flex-box tall">
+        <div class="item">1</div>
+        <div class="item self-end">2</div>
+        <div class="item">3</div>
+    </div>
+</div>
+
+<div class="section footer">
+    <h2>🎉 Completed Flexbox Guide</h2>
+    <p>Flexbox is a one-dimensional layout system.</p>
+</div>
+
+</body>
 </html>
