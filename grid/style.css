@@ -1,0 +1,104 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #f4f4f4;
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
+}
+
+section {
+  background: white;
+  padding: 20px;
+  margin: 25px 0;
+  border-radius: 8px;
+}
+
+.grid {
+  display: grid;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.grid div {
+  background: #3a676d;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  font-weight: bold;
+}
+
+/* NOTE style */
+.note {
+  background: #fff3cd;
+  padding: 10px;
+  border-left: 5px solid #ffc107;
+  margin-bottom: 10px;
+}
+
+code {
+  color: #d63384;
+}
+
+/* Grid layouts */
+.columns {
+  grid-template-columns: 100px 100px 100px 100px;
+}
+
+.rows {
+  height: 200px;
+  grid-template-rows: 25% 25% 25% 25%;
+}
+
+/* Column start & end */
+.col-start-end {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.col-box {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  background: #198754;
+}
+
+/* Row start & end */
+.row-start-end {
+  grid-template-rows: repeat(3, 1fr);
+  height: 200px;
+}
+
+.row-box {
+  grid-row-start: 1;
+  grid-row-end: 3;
+  background: #fd7e14;
+}
+
+/* Span */
+.span {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.span-box {
+  grid-column: span 2;
+  background: #dc3545;
+}
+
+/* Grid areas */
+.area {
+  grid-template-areas:
+    "header header"
+    "menu content"
+    "footer footer";
+  grid-template-columns: 1fr 3fr;
+}
+
+.header { grid-area: header; }
+.menu { grid-area: menu; }
+.content { grid-area: content; }
+.footer { grid-area: footer; }
+
+/* Order */
+.order {
+  grid-template-columns: repeat(3, 1fr);
+}

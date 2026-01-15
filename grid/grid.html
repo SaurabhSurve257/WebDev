@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CSS Grid Notes Website</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>CSS Grid Properties – Notes with Examples</h1>
+
+<!-- grid-template-columns -->
+<section>
+  <h2>grid-template-columns</h2>
+  <p class="note">
+    NOTE: To create 4 columns of fixed width, I have used
+    <code>grid-template-columns: 100px 100px 100px 100px;</code>
+  </p>
+  <div class="grid columns">
+    <div>1</div><div>2</div><div>3</div><div>4</div>
+  </div>
+</section>
+
+<!-- grid-template-rows -->
+<section>
+  <h2>grid-template-rows</h2>
+  <p class="note">
+    NOTE: To create 4 rows using percentage height, I have used
+    <code>grid-template-rows: 25% 25% 25% 25%;</code>
+  </p>
+  <div class="grid rows">
+    <div>A</div><div>B</div><div>C</div><div>D</div>
+  </div>
+</section>
+
+<!-- grid-column-start & end -->
+<section>
+  <h2>grid-column-start & grid-column-end</h2>
+  <p class="note">
+    NOTE: To place the first box from column line 1 to column line 3,
+    I have used
+    <code>grid-column-start: 1;</code>
+    <code>grid-column-end: 3;</code>
+  </p>
+  <div class="grid col-start-end">
+    <div class="col-box">Box 1</div>
+    <div>Box 2</div>
+    <div>Box 3</div>
+    <div>Box 4</div>
+  </div>
+</section>
+
+<!-- grid-row-start & end -->
+<section>
+  <h2>grid-row-start & grid-row-end</h2>
+  <p class="note">
+    NOTE: To place the box from row line 1 to row line 3,
+    I have used
+    <code>grid-row-start: 1;</code>
+    <code>grid-row-end: 3;</code>
+  </p>
+  <div class="grid row-start-end">
+    <div class="row-box">Row Box</div>
+    <div>2</div>
+    <div>3</div>
+    <div>4</div>
+  </div>
+</section>
+
+<!-- span -->
+<section>
+  <h2>span</h2>
+  <p class="note">
+    NOTE: To make the box span across two columns, I have used
+    <code>grid-column: span 2;</code>
+  </p>
+  <div class="grid span">
+    <div class="span-box">Span</div>
+    <div>2</div><div>3</div><div>4</div>
+  </div>
+</section>
+
+<!-- grid-area -->
+<section>
+  <h2>grid-area</h2>
+  <p class="note">
+    NOTE: To create layout sections like header, menu, content and footer,
+    I have used <code>grid-template-areas</code>.
+  </p>
+  <div class="grid area">
+    <div class="header">Header</div>
+    <div class="menu">Menu</div>
+    <div class="content">Content</div>
+    <div class="footer">Footer</div>
+  </div>
+</section>
+
+<!-- order -->
+<section>
+  <h2>order</h2>
+  <p class="note">
+    NOTE: To change the visual order without changing HTML,
+    I have used <code>order</code> property.
+  </p>
+  <div class="grid order">
+    <div style="order:3">One</div>
+    <div style="order:1">Two</div>
+    <div style="order:2">Three</div>
+  </div>
+</section>
+
+</body>
+</html>

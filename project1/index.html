@@ -4,19 +4,124 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Landing page</title>
-    <style>
-        body{
-            font-family: Arial, Helvetica, sans-serif;
-            background-color: #f0f0f0;
-            margin: 0;
-            padding: 20px;
+  <style>
+    body{
+        font-family: Arial, Helvetica, sans-serif;
+        background-color: #f0f0f0;
+        margin: 0;
+        padding: 20px;
+    }
+
+    /* NAVBAR */
+    nav{
+        text-align: center;
+        background: slategray;
+        padding: 15px;
+    }
+
+    nav a{
+        color: white;
+        text-decoration: none;
+        margin: 0 10px;
+        font-weight: bold;
+        transition: color 0.3s ease, transform 0.3s ease;
+    }
+
+    nav a:hover{
+        color: yellow;
+        transform: scale(1.15);
+    }
+
+    /* CONTENT SECTION */
+    .content{
+        animation: fadeSlide 1.5s ease;
+        transition: transform 0.3s ease;
+    }
+
+    .content:hover{
+        transform: translateY(-5px);
+    }
+
+    @keyframes fadeSlide{
+        from{
+            opacity: 0;
+            transform: translateY(30px);
         }
-        nav{
-            text-align: center;
-            margin-bottom: 10px;
-            background: slategray;
+        to{
+            opacity: 1;
+            transform: translateY(0);
         }
-    </style>
+    }
+
+    /* BUTTON */
+    button{
+        padding: 10px 20px;
+        background: slategray;
+        color: white;
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    button:hover{
+        background: black;
+        box-shadow: 0 0 10px rgba(0,0,0,0.5);
+        transform: scale(1.1);
+    }
+
+    /* MAIN IMAGE */
+    .main-img{
+        animation: zoomIn 1.5s ease;
+        transition: transform 0.4s ease, box-shadow 0.4s ease;
+        border-radius: 8px;
+    }
+
+    .main-img:hover{
+        transform: scale(1.05);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+    }
+
+    @keyframes zoomIn{
+        from{
+            transform: scale(0.8);
+            opacity: 0;
+        }
+        to{
+            transform: scale(1);
+            opacity: 1;
+        }
+    }
+
+    /* SLIDER */
+    .slider{
+        overflow: hidden;
+        white-space: nowrap;
+    }
+
+    .slider img{
+        width: 300px;
+        height: 300px;
+        margin-right: 20px;
+        animation: slide 10s linear infinite;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        border-radius: 10px;
+    }
+
+    .slider img:hover{
+        animation-play-state: paused;
+        transform: scale(1.1);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+    }
+
+    @keyframes slide{
+        from{
+            transform: translateX(100%);
+        }
+        to{
+            transform: translateX(-100%);
+        }
+    }
+</style>
 </head>
 <body>
     <center>
