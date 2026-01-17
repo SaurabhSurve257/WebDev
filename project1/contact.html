@@ -4,106 +4,21 @@
     <meta charset="UTF-8">
     <title>Contact Us | Rozgaar Mitra</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js" integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y" crossorigin="anonymous"></script>
-    
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
         body {
             font-family: Arial, Helvetica, sans-serif;
-            margin: 0;
-            padding: 0;
             background-color: #f5f5f5;
-            color: #333;
         }
 
         .header {
             background: #ff8c00;
             color: white;
-            padding: 20px;
-            text-align: center;
-        }
-         nav{
-        text-align: center;
-        background: slategray;
-        padding: 15px;
-    }
-
-    nav a{
-        color: white;
-        text-decoration: none;
-        margin: 0 10px;
-        font-weight: bold;
-        transition: color 0.3s ease, transform 0.3s ease;
-    }
-
-    nav a:hover{
-        color: yellow;
-        transform: scale(1.15);
-    }
-
-        .container {
-            max-width: 1100px;
-            margin: 30px auto;
-            background: white;
             padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-
-        h2 {
-            color: #ff8c00;
-        }
-
-        p {
-            line-height: 1.8;
-            font-size: 16px;
-        }
-
-        .contact-info {
-            display: flex;
-            gap: 30px;
-            margin-top: 20px;
-        }
-
-        .box {
-            flex: 1;
-            background: #fafafa;
-            padding: 20px;
-            border-left: 5px solid #ff8c00;
-            border-radius: 5px;
-        }
-
-        form {
-            margin-top: 30px;
-        }
-
-        input, textarea {
-            width: 100%;
-            padding: 12px;
-            margin-top: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 15px;
-        }
-
-        textarea {
-            resize: vertical;
-        }
-
-        button {
-            margin-top: 15px;
-            padding: 12px 25px;
-            background: #ff8c00;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background: #e67600;
+            text-align: center;
         }
 
         footer {
@@ -113,75 +28,98 @@
             color: white;
             margin-top: 40px;
         }
-
-        @media (max-width: 768px) {
-            .contact-info {
-                flex-direction: column;
-            }
-        }
     </style>
 </head>
 
 <body>
-    <center>
-    <header> 
-         <nav class="navbar navbar-expand-lg bg-body-tertiary">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#"></a>
-      <div class="navbar-nav">
-        <a class="nav-link active"  href="index.html">Home</a>
-        <a class="nav-link" href="about.html">About</a>
-        <a class="nav-link" href="contact.html">Contact</a>
-      </div>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container">
+    <a class="navbar-brand fw-bold" href="#">Rozgaar Mitra</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+        <li class="nav-item"><a class="nav-link active" href="contact.html">Contact</a></li>
+      </ul>
     </div>
   </div>
-</nav>  
- </header>
-    </center>
-    <div class="header">
-        <h1>Rozgaar Mitra</h1>
-        <p>आमच्याशी संपर्क साधा</p>
-    </div>
+</nav>
 
-    <div class="container">
-        <h2>संपर्क माहिती</h2>
-        <p>
-            तुम्हाला काही प्रश्न, सूचना किंवा सहकार्य करायचे असल्यास खालील माध्यमांतून
-            आमच्याशी संपर्क साधू शकता.
-        </p>
+<!-- Header -->
+<div class="header">
+    <h1 class="fw-bold">Rozgaar Mitra</h1>
+    <p>आमच्याशी संपर्क साधा</p>
+</div>
 
-        <div class="contact-info">
-            <div class="box">
-                <h2>📍 पत्ता</h2>
-                <p>
-                    Rozgaar Mitra Office<br>
-                    Pune, Maharashtra<br>
-                    India
-                </p>
-            </div>
+<!-- Main Container -->
+<div class="container my-5">
+    <h2 class="text-warning mb-3">संपर्क माहिती</h2>
+    <p>
+        तुम्हाला काही प्रश्न, सूचना किंवा सहकार्य करायचे असल्यास खालील माध्यमांतून
+        आमच्याशी संपर्क साधू शकता.
+    </p>
 
-            <div class="box">
-                <h2>📞 संपर्क</h2>
-                <p>
-                    फोन: +91 9XXXXXXXXX<br>
-                    ई-मेल: support@rozgaarmitra.com
-                </p>
+    <!-- Contact Info -->
+    <div class="row g-4 mt-3">
+        <div class="col-md-6">
+            <div class="card shadow h-100">
+                <div class="card-body">
+                    <h5 class="card-title text-warning">📍 पत्ता</h5>
+                    <p class="card-text">
+                        Rozgaar Mitra Office<br>
+                        Pune, Maharashtra<br>
+                        India
+                    </p>
+                </div>
             </div>
         </div>
 
-        <h2>📩 आम्हाला संदेश पाठवा</h2>
-
-        <form>
-            <input type="text" placeholder="तुमचे नाव" required>
-            <input type="email" placeholder="तुमचा ई-मेल" required>
-            <textarea rows="5" placeholder="तुमचा संदेश" required></textarea>
-            <button type="submit">संदेश पाठवा</button>
-        </form>
+        <div class="col-md-6">
+            <div class="card shadow h-100">
+                <div class="card-body">
+                    <h5 class="card-title text-warning">📞 संपर्क</h5>
+                    <p class="card-text">
+                        फोन: +91 9XXXXXXXXX<br>
+                        ई-मेल: support@rozgaarmitra.com
+                    </p>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <footer>
-        © 2026 Rozgaar Mitra | All Rights Reserved
-    </footer>
+    <!-- Contact Form -->
+    <h2 class="text-warning mt-5">📩 आम्हाला संदेश पाठवा</h2>
+
+    <form class="mt-3">
+        <div class="mb-3">
+            <input type="text" class="form-control" placeholder="तुमचे नाव" required>
+        </div>
+
+        <div class="mb-3">
+            <input type="email" class="form-control" placeholder="तुमचा ई-मेल" required>
+        </div>
+
+        <div class="mb-3">
+            <textarea class="form-control" rows="5" placeholder="तुमचा संदेश" required></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-warning px-4">
+            संदेश पाठवा
+        </button>
+    </form>
+</div>
+
+<footer>
+    © 2026 Rozgaar Mitra | All Rights Reserved
+</footer>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>
