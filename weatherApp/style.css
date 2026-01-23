@@ -1,0 +1,308 @@
+/* ===========================
+   WEATHER APP STYLESHEET
+   SEO & MODERN DESIGN
+   =========================== */
+
+/* Reset & Root Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* Main Container */
+div {
+    width: 100%;
+    max-width: 500px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    padding: 40px;
+    animation: slideDown 0.5s ease-out;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Form Styles */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+form input {
+    padding: 14px 16px;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-family: inherit;
+    transition: all 0.3s ease;
+    background-color: #f9f9f9;
+}
+
+form input:focus {
+    outline: none;
+    border-color: #667eea;
+    background-color: #fff;
+    box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+}
+
+form input::placeholder {
+    color: #999;
+    font-size: 0.95rem;
+}
+
+/* Button Styles */
+button {
+    padding: 14px 28px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+}
+
+button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 10px rgba(102, 126, 234, 0.4);
+}
+
+button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Weather Result Container */
+#weatherResult {
+    margin-top: 30px;
+    padding: 25px;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    border-radius: 15px;
+    min-height: 150px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+#weatherResult img {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    align-self: center;
+}
+
+#weatherResult h2 {
+    font-size: 1.8rem;
+    color: #333;
+    margin: 10px 0;
+    text-align: center;
+    font-weight: 700;
+}
+
+#weatherResult p {
+    font-size: 1.05rem;
+    color: #555;
+    margin: 8px 0;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    padding-bottom: 12px;
+}
+
+#weatherResult p:last-child {
+    border-bottom: none;
+}
+
+#weatherResult p strong {
+    color: #667eea;
+    font-weight: 600;
+}
+
+/* Responsive Design for Mobile */
+@media (max-width: 768px) {
+    div {
+        padding: 25px;
+        max-width: 95%;
+    }
+
+    form {
+        gap: 12px;
+    }
+
+    form input,
+    button {
+        padding: 12px 14px;
+        font-size: 0.95rem;
+    }
+
+    #weatherResult h2 {
+        font-size: 1.5rem;
+    }
+
+    #weatherResult p {
+        font-size: 1rem;
+    }
+
+    #weatherResult img {
+        width: 100px;
+        height: 100px;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 10px;
+    }
+
+    div {
+        padding: 20px;
+        border-radius: 15px;
+    }
+
+    form input,
+    button {
+        padding: 12px 12px;
+        font-size: 0.9rem;
+    }
+
+    #weatherResult {
+        padding: 15px;
+        min-height: auto;
+    }
+
+    #weatherResult h2 {
+        font-size: 1.3rem;
+    }
+
+    #weatherResult p {
+        font-size: 0.95rem;
+    }
+}
+
+/* Accessibility & SEO Improvements */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: more) {
+    form input {
+        border-width: 3px;
+    }
+
+    button {
+        border: 2px solid #333;
+    }
+
+    #weatherResult {
+        border: 2px solid #333;
+    }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+    body {
+        background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    }
+
+    div {
+        background: #0f3460;
+        color: #eee;
+    }
+
+    form input {
+        background-color: #1a3a52;
+        border-color: #667eea;
+        color: #eee;
+    }
+
+    form input::placeholder {
+        color: #aaa;
+    }
+
+    #weatherResult {
+        background: linear-gradient(135deg, #16213e 0%, #0f3460 100%);
+        color: #eee;
+    }
+
+    #weatherResult h2 {
+        color: #667eea;
+    }
+
+    #weatherResult p {
+        color: #ccc;
+        border-bottom-color: rgba(255, 255, 255, 0.1);
+    }
+}
+
+/* Print Styles for SEO */
+@media print {
+    body {
+        background: white;
+    }
+
+    button {
+        display: none;
+    }
+
+    div {
+        box-shadow: none;
+        max-width: 100%;
+    }
+}
