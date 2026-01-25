@@ -1,0 +1,51 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    scroll-behavior: smooth;
+}
+
+nav {
+    position: fixed;
+    width: 100%;
+    background: #111;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 40px;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    margin-left: 20px;
+}
+
+.hero {
+    height: 100vh;
+    background: linear-gradient(to right, #141e30, #243b55);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 50px;
+}
+
+.hero span {
+    color: #00e5ff;
+}
+
+section {
+    padding: 80px 50px;
+}
+
+.skill, .card {
+    background: #f2f2f2;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 8px;
+}
