@@ -1,64 +1,337 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Saurabh Surve | Portfolio</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Saurabh Surve | Full Stack Developer</title>
+  <style>
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    @keyframes slideInLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+    @keyframes pulse {
+      0%, 100% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0.8;
+      }
+    }
+    @keyframes bounce {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #0f172a;
+      color: #e5e7eb;
+      line-height: 1.6;
+    }
+    header {
+      background: linear-gradient(135deg, #2563eb, #1e40af);
+      padding: 60px 20px;
+      text-align: center;
+      animation: fadeInDown 0.8s ease-out;
+    }
+    header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+      animation: bounce 2s infinite;
+    }
+    header p {
+      font-size: 1.1rem;
+      max-width: 700px;
+      margin: auto;
+    }
+    section {
+      padding: 60px 20px;
+      max-width: 1000px;
+      margin: auto;
+      animation: fadeInUp 0.8s ease-out forwards;
+      opacity: 0;
+    }
+    section:nth-child(1) { animation-delay: 0s; }
+    section:nth-child(2) { animation-delay: 0.2s; }
+    section:nth-child(3) { animation-delay: 0.4s; }
+    section:nth-child(4) { animation-delay: 0.6s; }
+    section:nth-child(5) { animation-delay: 0.8s; }
+    h2 {
+      color: #60a5fa;
+      border-bottom: 2px solid #1e40af;
+      display: inline-block;
+      margin-bottom: 20px;
+    }
+    .skills, .projects {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+    .card img {
+      max-width: 100%;
+      height: auto;
+      margin-bottom: 15px;
+      border-radius: 5px;
+    }
+    .skill-icons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 15px;
+    }
+    .skill-icon {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.85rem;
+    }
+    .skill-icon img {
+      width: 50px;
+      height: 50px;
+      object-fit: contain;
+      margin-bottom: 0;
+      transition: transform 0.3s ease;
+    }
+    .skill-icon:hover img {
+      transform: scale(1.2) rotate(5deg);
+    }
+    .card {
+      background: #111827;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+      transition: all 0.3s ease;
+      animation: slideInLeft 0.6s ease-out;
+    }
+    .card:hover {
+      transform: translateY(-5px) scale(1.02);
+      box-shadow: 0 15px 30px rgba(37, 99, 235, 0.2);
+      background: #1a2332;
+      animation: pulse 0.5s ease-out;
+    }
+    footer {
+      background: #020617;
+      text-align: center;
+      padding: 30px 20px;
+      font-size: 0.9rem;
+    }
+    a {
+      color: #60a5fa;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+    a:hover {
+      text-decoration: underline;
+      color: #93c5fd;
+    }
+    h2 {
+      transition: color 0.3s ease;
+    }
+    h2:hover {
+      color: #93c5fd;
+    }
+    section {
+      transition: opacity 0.3s ease;
+    }
+    section:hover {
+      opacity: 1;
+    }
+    h3 {
+      transition: color 0.3s ease;
+      animation: slideInLeft 0.5s ease-out;
+    }
+    h3:hover {
+      color: #93c5fd;
+      animation: bounce 0.6s ease-out;
+    }
+  </style>
 </head>
 <body>
 
-<nav>
-    <h2 class="logo">Saurabh</h2>
-    <ul>
-        <li><a href="#home">Home</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#skills">Skills</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#contact">Contact</a></li>
-    </ul>
-</nav>
+  <header>
+    <h1>Saurabh Surve</h1>
+    <p>Entry-level Full Stack Developer with hands-on experience in building responsive, scalable, and user-focused applications using modern technologies.</p>
+    <p>Pune, Maharashtra | <a href="mailto:saurabhsurve257@gmail.com">Email</a> | <a href="https://www.linkedin.com/in/saurabh-surve-b3b342236" target="_blank">LinkedIn</a> | <a href="https://github.com/SaurabhSurve257" target="_blank">GitHub</a></p>
+  </header>
 
-<section id="home" class="hero">
-    <h1>Hi, I'm <span>Saurabh Surve</span></h1>
-    <p>Software Developer | Java | .NET</p>
-    <a href="assets/resume.pdf" class="btn" download>Download Resume</a>
-</section>
-
-<section id="about">
+  <section>
     <h2>About Me</h2>
     <p>
-        MSc Computer Science graduate with strong experience in Java and .NET.
-        Worked on ERP systems, dashboards, SQL, and reports.
+      I am a passionate Full Stack Developer with a strong foundation in Java, .NET, and database-driven application development.
+      I have completed my M.Sc. in Computer Science and gained real-world experience while working as a .NET Developer Intern
+      on enterprise ERP systems. I enjoy learning new technologies, solving problems, and building clean, efficient software.
     </p>
-</section>
+  </section>
 
-<section id="skills">
-    <h2>Skills</h2>
-    <div class="skill">Java</div>
-    <div class="skill">C# / .NET</div>
-    <div class="skill">MS SQL Server</div>
-    <div class="skill">HTML, CSS, JavaScript</div>
-</section>
+  <section>
+    <h2>Technical Skills</h2>
+    <div class="skills">
+      <div class="card">
+        <h3>Programming Languages</h3>
+        <p>Java, C#, HTML, CSS, JavaScript, SQL</p>
+        <div class="skill-icons">
+          <div class="skill-icon">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" alt="Java">
+            <span>Java</span>
+          </div>
+          <div class="skill-icon">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-original.svg" alt="C#">
+            <span>C#</span>
+          </div>
+          <div class="skill-icon">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML">
+            <span>HTML</span>
+          </div>
+          <div class="skill-icon">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS">
+            <span>CSS</span>
+          </div>
+          <div class="skill-icon">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript">
+            <span>JavaScript</span>
+          </div>
+          <div class="skill-icon">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="SQL">
+            <span>SQL</span>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Frameworks & Technologies</h3>
+        <p>.NET, ASP.NET, MVC, REST API, WCF, SOAP, WinForms, RDLC</p>
+        <div class="skill-icons">
+          <div class="skill-icon">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dot-net/dot-net-original.svg" alt=".NET">
+            <span>.NET</span>
+          </div>
+          <div class="skill-icon">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dot-net/dot-net-original.svg" alt="ASP.NET">
+            <span>ASP.NET</span>
+          </div>
+          <div class="skill-icon">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/chrome/chrome-original.svg" alt="REST API">
+            <span>REST API</span>
+          </div>
+          <div class="skill-icon">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/visualstudio/visualstudio-plain.svg" alt="Visual Studio">
+            <span>Visual Studio</span>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Databases & Tools</h3>
+        <p>MS SQL Server, MySQL, PostgreSQL, MongoDB, Bootstrap, Tailwind CSS, Agile</p>
+        <div class="skill-icons">
+          <div class="skill-icon">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/microsoftsqlserver/microsoftsqlserver-plain.svg" alt="SQL Server">
+            <span>SQL Server</span>
+          </div>
+          <div class="skill-icon">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="MySQL">
+            <span>MySQL</span>
+          </div>
+          <div class="skill-icon">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" alt="PostgreSQL">
+            <span>PostgreSQL</span>
+          </div>
+          <div class="skill-icon">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" alt="MongoDB">
+            <span>MongoDB</span>
+          </div>
+          <div class="skill-icon">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg" alt="Bootstrap">
+            <span>Bootstrap</span>
+          </div>
+          <div class="skill-icon">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg" alt="Tailwind CSS">
+            <span>Tailwind</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<section id="projects">
+  <section>
+    <h2>Internship Experience</h2>
+    <div class="card">
+      <h3>.NET Developer Intern – Mech-Lean Concepts Pvt. Ltd.</h3>
+      <p><strong>Apr 2023 – Sep 2023 | Pune</strong></p>
+      <ul>
+        <li>Worked on 3 enterprise-level ERP systems focusing on UI and data integration modules.</li>
+        <li>Designed and developed 10+ WinForms dashboards using C# .NET, DataGridView, and DataSet.</li>
+        <li>Created 50+ RDLC reports for structured and printable business reporting.</li>
+        <li>Developed and optimized MS SQL Server stored procedures and complex SQL queries.</li>
+        <li>Integrated WinForms applications with SQL Server using ADO.NET.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
     <h2>Projects</h2>
-    <div class="card">
-        <h3>ERP Dashboard</h3>
-        <p>Built 10+ WinForms dashboards using .NET and SQL Server.</p>
+    <div class="projects">
+      <div class="card">
+        <h3>Criminal Face Recognition System</h3>
+        <ul>
+          <li>Developed a desktop-based system to manage 1,000+ criminal records digitally.</li>
+          <li>Implemented face detection and recognition for fast identity verification.</li>
+          <li>Designed a secure database for efficient storage and retrieval.</li>
+          <li>Improved operational efficiency by 40–50% by automating record management.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Blood Bank Management System</h3>
+        <ul>
+          <li>Built a desktop-based system with automated inventory tracking.</li>
+          <li>Improved blood unit search efficiency by 40% using blood-group filtering.</li>
+          <li>Reduced manual record-keeping by 50% through system automation.</li>
+        </ul>
+      </div>
     </div>
+  </section>
+
+  <section>
+    <h2>Education & Certification</h2>
     <div class="card">
-        <h3>Netflix Clone</h3>
-        <p>Responsive UI using HTML, CSS, Bootstrap.</p>
+      <p><strong>M.Sc. Computer Science (2022–2024)</strong><br>Kaveri College of Arts, Science and Commerce, Pune (CGPA: 7.5/10)</p>
+      <p><strong>B.Sc. Computer Science (2019–2022)</strong><br>Mamasaheb Mohol College, Pune (CGPA: 8.5/10)</p>
+      <p><strong>Advanced Full Stack Development Program</strong><br>UpGrad, Pune (2025 – Present)</p>
     </div>
-</section>
+  </section>
 
-<section id="contact">
-    <h2>Contact</h2>
-    <p>Email: saurabh@example.com</p>
-    <p>GitHub: github.com/yourusername</p>
-</section>
+  <footer>
+    <p>© 2026 Saurabh Surve | Full Stack Developer</p>
+  </footer>
 
-<script src="script.js"></script>
 </body>
 </html>
