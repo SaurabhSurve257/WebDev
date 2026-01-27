@@ -4,33 +4,61 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JobHub - Find Your Dream Job</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- Animated Background -->
+    <div class="animated-bg">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
     <div class="container">
+        <!-- Header Section -->
         <div class="header">
-            <h1>🚀 JobHub</h1>
-            <p>Discover your next career opportunity</p>
+            <div class="header-content">
+                <div class="logo-icon">
+                    <i class="fas fa-rocket"></i>
+                </div>
+                <h1>JobHub</h1>
+                <p class="tagline">Find Your Perfect Career Opportunity</p>
+            </div>
         </div>
 
+        <!-- Search Section -->
         <div class="search-section">
-            <form class="search-form">
-                <input 
-                    type="text" 
-                    id="jobTitle" 
-                    placeholder="Job title (e.g., Software Engineer)" 
-                    required>
-                <input 
-                    type="text" 
-                    id="location" 
-                    placeholder="Location (e.g., New York)" 
-                    required>
-                <button type="button" class="search-btn" onclick="getJobDetails()">Search Jobs</button>
-            </form>
+            <div class="search-wrapper">
+                <h2 class="search-title">Start Your Job Search</h2>
+                <form class="search-form">
+                    <div class="input-group">
+                        <i class="fas fa-briefcase"></i>
+                        <input 
+                            type="text" 
+                            id="jobTitle" 
+                            placeholder="Job title" 
+                            required>
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <input 
+                            type="text" 
+                            id="location" 
+                            placeholder="Location" 
+                            required>
+                    </div>
+                    <button type="button" class="search-btn" onclick="getJobDetails()">
+                        <i class="fas fa-search"></i>
+                        <span>Search</span>
+                    </button>
+                </form>
+            </div>
         </div>
 
+        <!-- Results Section -->
         <div class="results-section">
-            <div id="jobResults"></div>
+            <div id="jobResults" class="job-results-grid"></div>
         </div>
     </div>
     
