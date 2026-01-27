@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indian Mutual Funds Tracker</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📊 Indian Mutual Funds Tracker</h1>
+            <p>Find NAV & Details of All Indian Mutual Funds (FREE API)</p>
+        </div>
+
+        <div class="search-section">
+            <form class="search-form" onsubmit="handleSearch(event)">
+                <input 
+                    type="text" 
+                    id="fundName" 
+                    placeholder="Search mutual fund name..."
+                    required>
+                <button type="submit" class="search-btn">Search Funds</button>
+            </form>
+            <p class="api-info">🔄 Powered by MutualFundsIndia FREE API</p>
+        </div>
+
+        <div id="fundResult" class="results-section"></div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
