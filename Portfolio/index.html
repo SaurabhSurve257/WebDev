@@ -347,6 +347,62 @@
     </div>
   </section>
 
+  <section id="contact">
+    <h2>Contact Me</h2>
+    <div class="contact-container">
+      <div class="card contact-card">
+        <p class="lead">Interested in working together? Send a brief message and I’ll respond within 48 hours.</p>
+        <form id="contactForm" novalidate>
+          <div class="form-row">
+            <div class="field">
+              <label for="name">Full name</label>
+              <input type="text" id="name" name="name" required placeholder="Your full name">
+              <span class="field-error" aria-live="polite"></span>
+            </div>
+            <div class="field">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="_replyto" required placeholder="you@company.com">
+              <span class="field-error" aria-live="polite"></span>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="reason">Reason</label>
+            <input type="text" id="reason" name="subject" placeholder="Hiring, Project, Question" required>
+            <span class="field-error" aria-live="polite"></span>
+          </div>
+
+          <div class="field">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="6" required placeholder="Hi Saurabh — I'm reaching out about..."></textarea>
+            <span class="field-error" aria-live="polite"></span>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="primary-btn">Send message</button>
+            <button type="button" id="resetBtn" class="secondary-btn">Reset</button>
+          </div>
+
+          <p id="formStatus" class="form-status" style="display:none;"></p>
+        </form>
+      </div>
+
+      <aside class="contact-info card">
+        <h3>Get in touch</h3>
+        <p class="muted">Prefer email? Use the form or send a message directly to:</p>
+        <ul class="info-list">
+          <li><strong>Email:</strong> <a href="mailto:saurabhsurve257@gmail.com">saurabhsurve257@gmail.com</a></li>
+          <li><strong>Location:</strong> Pune, Maharashtra, India</li>
+          <li><strong>Availability:</strong> Open to freelance &amp; full-time roles</li>
+        </ul>
+        <div class="social">
+          <a href="https://www.linkedin.com/in/saurabh-surve-b3b342236" target="_blank" class="social-link">LinkedIn</a>
+          <a href="https://github.com/SaurabhSurve257" target="_blank" class="social-link">GitHub</a>
+        </div>
+      </aside>
+    </div>
+  </section>
+
   <footer>
     <p>© 2026 Saurabh Surve | Full Stack Developer</p>
   </footer>
