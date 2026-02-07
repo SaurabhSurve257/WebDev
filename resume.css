@@ -49,7 +49,7 @@ body {
 .resume {
   width: 210mm;
   min-height: 297mm;
-  padding: 20mm 18mm;   /* reduced padding */
+  padding: 5mm 8mm;   /* reduced padding */
 }
 
 
