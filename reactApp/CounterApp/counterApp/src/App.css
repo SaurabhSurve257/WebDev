@@ -1,0 +1,217 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+#root {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+/* Desktop Application Frame */
+div:first-child {
+  background: linear-gradient(135deg, #ffffff 0%, #f5f7fa 100%);
+  border-radius: 20px;
+  padding: 60px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3),
+              0 0 0 1px rgba(0, 0, 0, 0.05);
+  max-width: 600px;
+  width: 100%;
+  text-align: center;
+}
+
+/* Input Styling */
+input[type="number"] {
+  width: 100%;
+  padding: 15px;
+  margin-bottom: 30px;
+  border: 2px solid #667eea;
+  border-radius: 10px;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  background-color: #f9f9f9;
+}
+
+input[type="number"]:focus {
+  outline: none;
+  border-color: #764ba2;
+  box-shadow: 0 0 10px rgba(102, 126, 234, 0.4);
+  background-color: #ffffff;
+}
+
+input[type="number"]::placeholder {
+  color: #999;
+}
+
+/* Heading Styling */
+h1 {
+  color: #667eea;
+  font-size: 48px;
+  margin: 20px 0 40px;
+  font-weight: 700;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  animation: slideDown 0.6s ease;
+}
+
+/* Button Styling */
+button {
+  padding: 12px 25px;
+  margin: 10px 8px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+button:nth-child(2) {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+button:nth-child(2):hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+}
+
+button:nth-child(3) {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  color: white;
+}
+
+button:nth-child(3):hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(245, 87, 108, 0.4);
+}
+
+button:nth-child(4) {
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  color: white;
+}
+
+button:nth-child(4):hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(79, 172, 254, 0.4);
+}
+
+button:nth-child(5) {
+  background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+  color: white;
+}
+
+button:nth-child(5):hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(67, 233, 123, 0.4);
+}
+
+button:nth-child(6) {
+  background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+  color: white;
+}
+
+button:nth-child(6):hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(250, 112, 154, 0.4);
+}
+
+button:nth-child(7) {
+  background: linear-gradient(135deg, #30cfd0 0%, #330867 100%);
+  color: white;
+}
+
+button:nth-child(7):hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(48, 207, 208, 0.4);
+}
+
+button:active {
+  transform: translateY(-1px);
+}
+
+/* Animation */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Extra Component Container */
+div:last-child {
+  margin-top: 40px;
+  padding: 20px;
+  background: rgba(102, 126, 234, 0.1);
+  border-radius: 10px;
+  border-left: 5px solid #667eea;
+}
+
+div:last-child h1,
+div:last-child h2 {
+  font-size: 20px;
+  margin: 10px 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  div:first-child {
+    padding: 40px 30px;
+    max-width: 500px;
+  }
+
+  h1 {
+    font-size: 40px;
+  }
+
+  button {
+    padding: 10px 18px;
+    font-size: 13px;
+    margin: 8px 5px;
+  }
+
+  input[type="number"] {
+    padding: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  div:first-child {
+    padding: 30px 20px;
+  }
+
+  h1 {
+    font-size: 32px;
+  }
+
+  button {
+    padding: 10px 15px;
+    font-size: 12px;
+    margin: 6px 4px;
+  }
+
+  input[type="number"] {
+    padding: 12px;
+    font-size: 14px;
+  }
+}

@@ -10,10 +10,10 @@ import BasicExample from './components/Navbar/Navbar.jsx'
 function App() {
   return (
     <>
-      <Header />
-      <Hero />
+      {/* <Header />
+      <Hero /> */}
       <Footer />
-      <BasicExample />
+      {/* <BasicExample /> */}
       
     </>
   )
