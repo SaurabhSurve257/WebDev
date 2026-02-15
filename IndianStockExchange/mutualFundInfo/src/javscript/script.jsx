@@ -1,6 +1,6 @@
 import React from 'react'
 import './script.css';
-// import './App.css';
+//import './src/App.css';
 
 // MutualFundsIndia API - 100% FREE, NO API KEY NEEDED
 const API_BASE_URL = 'https://api.mfapi.in/mf';
@@ -94,13 +94,13 @@ const script = () => {
   }
 
   return (
-    <div className="mutual-funds-container">
-      <form  onSubmit={handleSearch}>
-        <input type="text" id="fundName" placeholder="Search mutual funds..." />
-        <button type="submit">Search</button>
+    <>
+      <form className='search-form' onSubmit={handleSearch}>
+        <input type="text" id="fundName" placeholder="Search mutual funds..."  required/>
+        <button type="submit" className='search-btn'>Search</button>
       </form>
-      <div id="fundResult"></div>
-    </div>
+      {/* <div id="fundResult"></div> */}
+    </>
   )
 }
 

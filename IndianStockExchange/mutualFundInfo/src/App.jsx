@@ -15,6 +15,7 @@ function App() {
           <Script />
           <p className="api-info">🔄 Powered by MutualFundsIndia</p>
         </div>
+        <div id="fundResult" className='results-section'></div>
       </div>
     </>
   )
