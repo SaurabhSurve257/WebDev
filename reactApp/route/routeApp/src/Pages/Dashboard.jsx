@@ -8,6 +8,7 @@ const Dashboard = () => {
     <div>
         <h1>Dashboard</h1>
         <Link to='/Dashboard/profile/: id'>Go To Profile</Link>
+          <br />
         <Link to='/Dashboard/setting'>Go To Settings</Link>
      <Outlet />
     </div>

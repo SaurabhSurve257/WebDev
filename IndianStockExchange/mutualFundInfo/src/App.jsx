@@ -13,9 +13,8 @@ function App() {
 
         <div className="search-section">
           <Script />
-          <p className="api-info">🔄 Powered by MutualFundsIndia</p>
         </div>
-        <div id="fundResult" className='results-section'></div>
+        
       </div>
     </>
   )

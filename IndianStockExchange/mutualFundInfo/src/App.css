@@ -109,9 +109,13 @@ body {
 }
 
 .results-section h2 {
-     color: white;
     margin-bottom: 20px;
     font-size: 1.8em;
+}
+
+/* When results are shown inside the white search card, make the heading dark */
+.search-section .results-section h2 {
+    color: #1e3c72;
 }
 
 .fund-card {
