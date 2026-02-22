@@ -4,22 +4,25 @@ import './App.css'
 function App() {
   const [notes, setNotes] = useState([])
   const [archivedNotes, setArchivedNotes] = useState([])
+  const [subject, setSubject] = useState('')
   const [inputValue, setInputValue] = useState('')
 
   // Add a new note
   const addNote = () => {
-    if (inputValue.trim() === '') {
-      alert('Please enter a note')
+    if (subject.trim() === '' || inputValue.trim() === '') {
+      alert('Please enter both subject and description')
       return
     }
     
     const newNote = {
       id: Date.now(),
+      subject: subject,
       text: inputValue,
       createdAt: new Date().toLocaleDateString()
     }
     
     setNotes([newNote, ...notes])
+    setSubject('')
     setInputValue('')
   }
 
@@ -68,7 +71,14 @@ function App() {
       <div className='input-section'>
         <input 
           type='text' 
-          placeholder='Add a new note...'
+          placeholder='Enter subject...'
+          value={subject}
+          onChange={(e) => setSubject(e.target.value)}
+          className='note-input'
+        />
+        <input 
+          type='text' 
+          placeholder='Add a note description...'
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
           onKeyPress={handleKeyPress}
@@ -87,6 +97,7 @@ function App() {
             {notes.map((note) => (
               <div key={note.id} className='note-card'>
                 <div className='note-content'>
+                  <h3 className='note-subject'>{note.subject}</h3>
                   <p className='note-text'>{note.text}</p>
                   <span className='note-date'>{note.createdAt}</span>
                 </div>
@@ -122,6 +133,7 @@ function App() {
             {archivedNotes.map((note) => (
               <div key={note.id} className='note-card archived-card'>
                 <div className='note-content'>
+                  <h3 className='note-subject'>{note.subject}</h3>
                   <p className='note-text'>{note.text}</p>
                   <span className='note-date'>{note.createdAt}</span>
                 </div>

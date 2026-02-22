@@ -24,12 +24,15 @@ body {
 
 .input-section {
   display: flex;
+  flex-wrap: wrap;
   gap: 10px;
   margin-bottom: 20px;
+  align-items: flex-end;
 }
 
 .note-input {
   flex: 1;
+  min-width: 150px;
   padding: 10px;
   border: 1px solid #ddd;
   border-radius: 4px;
@@ -126,6 +129,13 @@ body {
 
 .note-content {
   flex: 1;
+}
+
+.note-subject {
+  color: #007bff;
+  margin-bottom: 8px;
+  font-size: 1.1em;
+  font-weight: 600;
 }
 
 .note-text {
