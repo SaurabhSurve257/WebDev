@@ -11,6 +11,24 @@ Currently, two official plugins are available:
 
 The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
+## Movie Minia Application
+
+This repository has been extended with a simple Movie Minia application. It displays a collection of sample movies and allows searching by title. The data is hard–coded in `src/App.jsx` but can later be replaced with an API call.
+
+### Running the app
+
+1. Ensure dependencies are installed:
+   ```bash
+   npm install
+   ```
+2. Start the development server:
+   ```bash
+   npm run dev
+   ```
+3. Open [http://localhost:5173](http://localhost:5173) in your browser to view the app.
+
+Feel free to modify the movie list, add new components, or integrate a real movie API.
+
 ## Expanding the ESLint configuration
 
 If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
