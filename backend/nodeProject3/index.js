@@ -1,14 +1,22 @@
-// server.mjs
-import { createServer } from 'node:http';
+import express from 'express'
+import adminRouter from './routes/adminRoutes.js';
+import productRouter from './routes/productRoutes.js';
+import userRouter from './routes/userRoutes.js';
 
-const server = createServer((req, res) => {
-  res.writeHead(200, { 'Content-Type': 'text/plain' });
-  res.end('Hello World!\n');
+const app = express()
+const port = 3000
+
+app.use(express.json());
+
+app.get('/', (req, res) => {
+  res.send('Hello World!')
 });
 
-// starts a simple http server locally on port 3000
-server.listen(3000, '127.0.0.1', () => {
-  console.log('Listening on 127.0.0.1:3000');
-});
+app.use('/api/admin', adminRouter);
+app.use('/api/products', productRouter);
+app.use('/api/users', userRouter);
 
-// run with `node server.mjs`
+
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`)
+});
