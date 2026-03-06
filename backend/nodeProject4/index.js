@@ -4,14 +4,16 @@ import express from 'express';
 import userRouter from './routes/userRouter.js';
 import formRouter from './routes/formRouter.js';  
 import dotenv from 'dotenv';
+import dbConnect from './utils/dbConnect.js';
 
-// dotenv.config();
+ dotenv.config();
 
 
 // configDotenv();
 const app = express();
 
 const port = process.env.PORT || 3000;
+dbConnect();
 app.use(express.json());
 
 
