@@ -6,9 +6,12 @@ const URL = import.meta.env.VITE_Bakend_URL;
  const loginUser = async (email, password) => {
     try {
         const response = await axios.post(`${URL}/api/users/login`, { email, password });
-        return response.data.token;
+        const token = response?.data?.data?.token || response?.data?.token;
+        if (!token) {
+            throw new Error('Login token not returned by server');
+        }
+        return token;
     } catch (error) {
-        //throw error.response.data;
         console.error("Login error: ", error);
         throw error;
     }
