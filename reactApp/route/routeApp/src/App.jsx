@@ -17,6 +17,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 function App() {
   const [userLoggedIn, setUserLoggedIn] = useState(false);
+  const [userRole, setUserRole] = useState('');
  
 
   return (
@@ -25,8 +26,8 @@ function App() {
     <div className="App">
     <BrowserRouter>
       <Routes>
-        <Route path='/' element={<Home userLoggedIn={userLoggedIn} />} />
-        <Route path='/login' element={<Login userLoggedIn={userLoggedIn}  />} />
+        <Route path='/' element={<Home userLoggedIn={userLoggedIn} userRole={userRole} />} />
+        <Route path='/login' element={<Login userLoggedIn={userLoggedIn} setUserLoggedIn={setUserLoggedIn} setUserRole={setUserRole} />} />
         <Route path='/register' element={<Register userLoggedIn={userLoggedIn} setUserLoggedIn={setUserLoggedIn} />} />
         <Route path='/about' element={<About />} />
         <Route path='/contact' element={<Contact />} />

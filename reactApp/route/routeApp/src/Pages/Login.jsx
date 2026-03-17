@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import './Login.css'
+import { loginUser, getUserProfile } from '../api/userApi'
 
-const Login = ({ userLoggedIn }) => {
+const Login = ({ userLoggedIn, setUserLoggedIn, setUserRole }) => {
   const navigate = useNavigate()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -19,17 +20,24 @@ const Login = ({ userLoggedIn }) => {
     return ''
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     const err = validate()
     if (err) return setError(err)
     setError('')
     setLoading(true)
-    // Simulate async login (replace with real auth call)
-    setTimeout(() => {
-      setLoading(false)
+    try {
+      const token = await loginUser(email, password)
+      localStorage.setItem('token', token)
+      const user = await getUserProfile(token)
+      setUserRole(user.role)
+      setUserLoggedIn(true)
       navigate('/')
-    }, 700)
+    } catch (error) {
+      setError('Login failed. Please check your credentials.')
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
