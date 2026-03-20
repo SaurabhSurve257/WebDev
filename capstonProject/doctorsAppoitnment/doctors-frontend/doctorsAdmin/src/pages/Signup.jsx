@@ -1,168 +1,213 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-
-const quickStats = [
-  { label: 'Hospitals connected', value: '120+' },
-  { label: 'Daily appointments', value: '4.8k' },
-  { label: 'Support availability', value: '24/7' },
-]
+import React, { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 
 const Signup = () => {
+  const navigate = useNavigate()
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+  })
+  const [submitting, setSubmitting] = useState(false)
+  const [error, setError] = useState('')
+  const [success, setSuccess] = useState('')
+
+  const baseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000/api'
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target
+    setFormData((current) => ({
+      ...current,
+      [name]: value,
+    }))
+  }
+
+  const handleSubmit = async (event) => {
+    event.preventDefault()
+    setError('')
+    setSuccess('')
+
+    if (!formData.name.trim() || !formData.email.trim()) {
+      setError('Name and email are required.')
+      return
+    }
+
+    if (formData.password.length < 6) {
+      setError('Password must be at least 6 characters long.')
+      return
+    }
+
+    if (formData.password !== formData.confirmPassword) {
+      setError('Password and confirm password do not match.')
+      return
+    }
+
+    try {
+      setSubmitting(true)
+      const response = await fetch(`${baseUrl}/auth/register`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          password: formData.password,
+          role: 'admin',
+        }),
+      })
+
+      const payload = await response.json().catch(() => ({}))
+
+      if (!response.ok) {
+        const fallback =
+          'Signup API is currently rejecting admin registration. Update backend role support for admin registration.'
+        throw new Error(payload.message || fallback)
+      }
+
+      setSuccess('Admin account created successfully. Redirecting to login...')
+      setTimeout(() => {
+        navigate('/login')
+      }, 1000)
+    } catch (requestError) {
+      setError(requestError.message || 'Unable to create admin account right now.')
+    } finally {
+      setSubmitting(false)
+    }
+  }
+
   return (
-    <div className="min-h-screen bg-slate-950 px-4 py-8 text-slate-100 sm:px-6 lg:px-8">
-      <div className="mx-auto grid min-h-[calc(100vh-4rem)] max-w-6xl overflow-hidden rounded-[32px] border border-white/10 bg-white/5 shadow-2xl shadow-cyan-950/30 backdrop-blur sm:grid-cols-2">
-        <section className="relative flex flex-col justify-between overflow-hidden bg-gradient-to-br from-cyan-500 via-sky-600 to-slate-900 p-8 sm:p-10 lg:p-12">
-          <div className="absolute inset-0">
-            <div className="absolute left-10 top-10 h-40 w-40 rounded-full bg-white/15 blur-3xl" />
-            <div className="absolute bottom-0 right-0 h-56 w-56 translate-x-10 translate-y-10 rounded-full bg-cyan-300/20 blur-3xl" />
+    <main className="mx-auto grid min-h-dvh w-full max-w-6xl items-center gap-6 px-4 py-10 sm:px-6 lg:grid-cols-2 lg:px-8">
+      <section className="relative overflow-hidden rounded-3xl border border-cyan-200/60 bg-gradient-to-br from-cyan-700 via-teal-700 to-emerald-700 p-8 text-white shadow-2xl shadow-cyan-900/25 sm:p-10">
+        <div className="absolute -right-16 -top-16 h-48 w-48 rounded-full bg-white/15 blur-2xl" />
+        <div className="absolute -bottom-20 -left-16 h-56 w-56 rounded-full bg-cyan-300/20 blur-3xl" />
+
+        <p className="mb-3 inline-flex rounded-full border border-white/35 bg-white/15 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-cyan-50">
+          Doctor Appointment Admin
+        </p>
+        <h1 className="text-3xl font-extrabold leading-tight text-white sm:text-4xl">
+          Create your admin workspace account.
+        </h1>
+        <p className="mt-4 max-w-lg text-sm text-cyan-50/95 sm:text-base">
+          Register an admin profile to configure doctor records, patient access,
+          and appointment operations centrally.
+        </p>
+
+        <div className="mt-8 grid gap-3 text-sm">
+          <p className="rounded-xl border border-white/25 bg-white/10 px-3 py-2">Optimized onboarding form for admins</p>
+          <p className="rounded-xl border border-white/25 bg-white/10 px-3 py-2">Client-side validation for safer inputs</p>
+          <p className="rounded-xl border border-white/25 bg-white/10 px-3 py-2">Instant handoff to login after success</p>
+        </div>
+      </section>
+
+      <section className="rounded-3xl border border-slate-200 bg-white/95 p-6 shadow-2xl shadow-slate-900/10 backdrop-blur sm:p-8">
+        <h2 className="text-3xl font-bold text-slate-900">Admin Sign Up</h2>
+        <p className="mt-2 text-sm text-slate-600">
+          Create credentials for secure admin access.
+        </p>
+
+        <form className="mt-6 space-y-4" onSubmit={handleSubmit}>
+          <div className="space-y-1.5">
+            <label htmlFor="name" className="text-sm font-semibold text-slate-700">
+              Full Name
+            </label>
+          <input
+            id="name"
+            name="name"
+            type="text"
+            placeholder="Hospital Admin"
+            value={formData.name}
+            onChange={handleInputChange}
+            autoComplete="name"
+            className="w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-slate-900 outline-none transition focus:border-teal-600 focus:ring-4 focus:ring-teal-100"
+            required
+          />
           </div>
 
-          <div className="relative">
-            <span className="inline-flex rounded-full border border-white/25 bg-white/10 px-4 py-1 text-xs font-semibold uppercase tracking-[0.3em] text-cyan-50">
-              Admin Portal
-            </span>
-            <h1 className="mt-6 max-w-md text-4xl font-bold leading-tight sm:text-5xl">
-              Create your workspace and manage care with confidence.
-            </h1>
-            <p className="mt-5 max-w-lg text-sm leading-7 text-cyan-50/85 sm:text-base">
-              Join the doctors appointment platform to organize schedules, monitor
-              patients, and keep every admin task in one secure place.
-            </p>
+          <div className="space-y-1.5">
+            <label htmlFor="email" className="text-sm font-semibold text-slate-700">
+              Admin Email
+            </label>
+          <input
+            id="email"
+            name="email"
+            type="email"
+            placeholder="admin@hospital.com"
+            value={formData.email}
+            onChange={handleInputChange}
+            autoComplete="email"
+            className="w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-slate-900 outline-none transition focus:border-teal-600 focus:ring-4 focus:ring-teal-100"
+            required
+          />
           </div>
 
-          <div className="relative mt-10 grid gap-4 sm:grid-cols-3">
-            {quickStats.map((item) => (
-              <div
-                key={item.label}
-                className="rounded-2xl border border-white/15 bg-slate-950/20 p-4 backdrop-blur-sm"
-              >
-                <p className="text-2xl font-bold text-white">{item.value}</p>
-                <p className="mt-1 text-xs uppercase tracking-[0.2em] text-cyan-100/75">
-                  {item.label}
-                </p>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <section className="bg-white px-6 py-8 text-slate-900 sm:px-10 sm:py-10 lg:px-12 lg:py-12">
-          <div className="mx-auto flex h-full max-w-md flex-col justify-center">
+          <div className="grid gap-4 sm:grid-cols-2">
             <div>
-              <p className="text-sm font-semibold uppercase tracking-[0.3em] text-cyan-600">
-                Sign up
-              </p>
-              <h2 className="mt-3 text-3xl font-bold text-slate-900">
-                Build your admin account
-              </h2>
-              <p className="mt-3 text-sm leading-6 text-slate-500">
-                Add your details below to start managing doctors, patients, and
-                appointments from one dashboard.
-              </p>
+              <label htmlFor="password" className="text-sm font-semibold text-slate-700">
+                Password
+              </label>
+              <input
+                id="password"
+                name="password"
+                type="password"
+                placeholder="Minimum 6 characters"
+                value={formData.password}
+                onChange={handleInputChange}
+                autoComplete="new-password"
+                minLength={6}
+                className="mt-1.5 w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-slate-900 outline-none transition focus:border-teal-600 focus:ring-4 focus:ring-teal-100"
+                required
+              />
             </div>
 
-            <form className="mt-8 space-y-5">
-              <div className="grid gap-5 sm:grid-cols-2">
-                <label className="block">
-                  <span className="mb-2 block text-sm font-medium text-slate-700">
-                    First name
-                  </span>
-                  <input
-                    type="text"
-                    placeholder="Saurabh"
-                    className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-cyan-500 focus:bg-white focus:ring-4 focus:ring-cyan-100"
-                  />
-                </label>
-
-                <label className="block">
-                  <span className="mb-2 block text-sm font-medium text-slate-700">
-                    Last name
-                  </span>
-                  <input
-                    type="text"
-                    placeholder="Sharma"
-                    className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-cyan-500 focus:bg-white focus:ring-4 focus:ring-cyan-100"
-                  />
-                </label>
-              </div>
-
-              <label className="block">
-                <span className="mb-2 block text-sm font-medium text-slate-700">
-                  Email address
-                </span>
-                <input
-                  type="email"
-                  placeholder="admin@hospital.com"
-                  className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-cyan-500 focus:bg-white focus:ring-4 focus:ring-cyan-100"
-                />
+            <div>
+              <label htmlFor="confirmPassword" className="text-sm font-semibold text-slate-700">
+                Confirm Password
               </label>
-
-              <label className="block">
-                <span className="mb-2 block text-sm font-medium text-slate-700">
-                  Hospital or clinic name
-                </span>
-                <input
-                  type="text"
-                  placeholder="Sunrise Care Center"
-                  className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-cyan-500 focus:bg-white focus:ring-4 focus:ring-cyan-100"
-                />
-              </label>
-
-              <div className="grid gap-5 sm:grid-cols-2">
-                <label className="block">
-                  <span className="mb-2 block text-sm font-medium text-slate-700">
-                    Password
-                  </span>
-                  <input
-                    type="password"
-                    placeholder="Create password"
-                    className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-cyan-500 focus:bg-white focus:ring-4 focus:ring-cyan-100"
-                  />
-                </label>
-
-                <label className="block">
-                  <span className="mb-2 block text-sm font-medium text-slate-700">
-                    Confirm password
-                  </span>
-                  <input
-                    type="password"
-                    placeholder="Repeat password"
-                    className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-cyan-500 focus:bg-white focus:ring-4 focus:ring-cyan-100"
-                  />
-                </label>
-              </div>
-
-              <label className="flex items-start gap-3 rounded-2xl border border-slate-200 bg-slate-50 p-4 text-sm text-slate-600">
-                <input
-                  type="checkbox"
-                  className="mt-1 h-4 w-4 rounded border-slate-300 text-cyan-600 focus:ring-cyan-500"
-                />
-                <span>
-                  I agree to the terms of service and consent to secure processing
-                  of admin account data.
-                </span>
-              </label>
-
-              <button
-                type="submit"
-                className="w-full rounded-2xl bg-slate-950 px-4 py-3 text-sm font-semibold text-white transition hover:bg-cyan-600 focus:outline-none focus:ring-4 focus:ring-cyan-200"
-              >
-                Create admin account
-              </button>
-            </form>
-
-            <p className="mt-6 text-center text-sm text-slate-500">
-              Already have an account?{' '}
-              <Link
-                to="/login"
-                className="font-semibold text-cyan-600 transition hover:text-cyan-700"
-              >
-                Sign in
-              </Link>
-            </p>
+              <input
+                id="confirmPassword"
+                name="confirmPassword"
+                type="password"
+                placeholder="Re-enter your password"
+                value={formData.confirmPassword}
+                onChange={handleInputChange}
+                autoComplete="new-password"
+                minLength={6}
+                className="mt-1.5 w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-slate-900 outline-none transition focus:border-teal-600 focus:ring-4 focus:ring-teal-100"
+                required
+              />
+            </div>
           </div>
-        </section>
-      </div>
-    </div>
+
+          {error ? (
+            <p className="rounded-xl border border-rose-200 bg-rose-50 px-3 py-2 text-sm font-medium text-rose-700">
+              {error}
+            </p>
+          ) : null}
+          {success ? (
+            <p className="rounded-xl border border-emerald-200 bg-emerald-50 px-3 py-2 text-sm font-medium text-emerald-700">
+              {success}
+            </p>
+          ) : null}
+
+          <button
+            type="submit"
+            className="w-full rounded-xl bg-gradient-to-r from-cyan-600 to-teal-600 px-4 py-2.5 font-semibold text-white shadow-lg shadow-cyan-700/30 transition hover:from-cyan-700 hover:to-teal-700"
+            disabled={submitting}
+          >
+            {submitting ? 'Creating Account...' : 'Create Admin Account'}
+          </button>
+        </form>
+
+        <p className="mt-5 text-center text-sm text-slate-600">
+          Already have an account?{' '}
+          <Link to="/login" className="font-semibold text-teal-700 hover:text-teal-800">
+            Login now
+          </Link>
+        </p>
+      </section>
+    </main>
   )
 }
 

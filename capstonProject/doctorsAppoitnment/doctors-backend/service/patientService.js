@@ -1,5 +1,5 @@
 //create patient service functions here
-import Patient from "../model/patientModel";
+import Patient from "../model/patientModel.js";
 
 const getAllPatientsService = async () => {
     try {

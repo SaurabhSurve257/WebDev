@@ -1,8 +1,9 @@
 //create login and register service functions here
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import Patient from "../model/patientModel";
-import Doctor from "../model/doctorModel";
+import Patient from "../model/patientModel.js";
+import Doctor from "../model/doctorModel.js";
+import Admin from "../model/adminModel.js";
 
 
 const registerPatientService = async (patientData) => {
@@ -49,16 +50,18 @@ const registerDoctorService = async (doctorData) => {
     }
 };
 
-const loginService = async (email, password) => {
+const loginService = async (email, password, role) => {
     try {
         // Check if user exists in patients
-        let user = await Patient.findOne({ email });
-        let role = "patient";
-
-        // If not found in patients, check in doctors
-        if (!user) {
+        let user;
+        if (role === "patient") {
+            user = await Patient.findOne({ email });
+        } else if (role === "doctor") {
             user = await Doctor.findOne({ email });
-            role = "doctor";
+        } else if (role === "admin") {
+            user = await Admin.findOne({ email });
+        } else {
+            throw new Error("Invalid role specified");
         }
 
         if (!user) {

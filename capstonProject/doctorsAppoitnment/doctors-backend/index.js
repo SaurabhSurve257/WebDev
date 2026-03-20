@@ -27,6 +27,11 @@ app.use("/api/auth", authRouter); //mounting the auth router
 app.use("/api/doctors", doctorRouter); //mounting the doctor router
 app.use("/api/patients", patientRouter); //mounting the patient router
 
+//invalid route handler
+app.use((req, res) => {
+    res.status(404).json({ message: "Route not found" });
+});
+
 // Start the server
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);

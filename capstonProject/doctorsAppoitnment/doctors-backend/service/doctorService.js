@@ -1,5 +1,5 @@
 //Create doctor service functions here
-import Doctor from "../model/doctorModel";
+import Doctor from "../model/doctorModel.js";
 
 const getAllDoctorsService = async () => {
     try {

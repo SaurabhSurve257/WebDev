@@ -1,5 +1,5 @@
 //create appointment service functions here
-import Appointment from "../model/appointmentModel";
+import Appointment from "../model/appointmentModel.js";
 
 const getAllAppointmentsService = async () => {
     try {

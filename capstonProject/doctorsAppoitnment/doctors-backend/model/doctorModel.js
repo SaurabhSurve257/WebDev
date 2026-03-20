@@ -45,11 +45,11 @@ const doctorSchema = new Schema(
 		},
 		timeSlots: {
 			availableTimeSlots: {
-				type: [String],
+				type: [{}],
 				default: [],
 			},
 			bookedTimeSlots: {
-				type: [String],
+				type: [{}],
 				default: [],
 			},
 		},

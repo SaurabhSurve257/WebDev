@@ -1,16 +1,33 @@
-import { Router } from "express";
-import {Routes, Router} from "express";
-import { createAppointment, getAppointments, getAppointmentById, updateAppointment, deleteAppointment } from "../controllers/appointmentController.js";
+import {Router} from "express";
+import {
+	getAllAppointmentsController,
+	getAppointmentByIdController,
+	createAppointmentController,
+	updateAppointmentController,
+	deleteAppointmentController,
+} from "../controller/appointmentController.js";
+import { authorizeRoles, verifyAdmin } from "../middleware/authoraization.js";
+import {
+	validateCreateAppointmentBody,
+	validateUpdateAppointmentBody,
+} from "../middleware/appointmentMiddleware.js";
 
-const appointmentRouter = Router(); 
+const appointmentRouter = Router();
+const verifyAuthenticatedUser = authorizeRoles("patient", "doctor", "admin");
 
-appointmentRouter.post("/appointments", createAppointment);
-appointmentRouter.get("/appointments", getAppointments);
-appointmentRouter.get("/appointments/:id", getAppointmentById);
-appointmentRouter.put("/appointments/:id", updateAppointment);
-appointmentRouter.delete("/appointments/:id", deleteAppointment);
+// GET /appointments - Get all appointments (admin only)
+appointmentRouter.get("/", verifyAdmin, getAllAppointmentsController);
 
+// GET /appointments/:id - Get a specific appointment by ID
+appointmentRouter.get("/:id", verifyAuthenticatedUser, getAppointmentByIdController);
 
+// POST /appointments - Create a new appointment
+appointmentRouter.post("/", verifyAuthenticatedUser, validateCreateAppointmentBody, createAppointmentController);
 
+// PUT /appointments/:id - Update an appointment's information
+appointmentRouter.put("/:id", verifyAuthenticatedUser, validateUpdateAppointmentBody, updateAppointmentController);
+
+// DELETE /appointments/:id - Delete an appointment (admin only)
+appointmentRouter.delete("/:id", verifyAdmin, deleteAppointmentController);
 
 export default appointmentRouter;

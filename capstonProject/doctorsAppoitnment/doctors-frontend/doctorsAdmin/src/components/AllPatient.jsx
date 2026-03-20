@@ -1,9 +1,11 @@
 import React from 'react'
 
-const AllPatient = () => {
+const Allpatients = () => {
   return (
-    <div>AllPatient</div>
+    <div>
+      
+    </div>
   )
 }
 
-export default AllPatient
+export default Allpatients

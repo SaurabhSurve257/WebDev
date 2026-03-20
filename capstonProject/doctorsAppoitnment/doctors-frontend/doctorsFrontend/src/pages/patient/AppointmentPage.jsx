@@ -1,0 +1,156 @@
+import { useMemo, useState } from 'react'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
+
+const AppointmnentPage = () => {
+  const navigate = useNavigate()
+  const { state } = useLocation()
+
+  const fallbackDoctor = useMemo(
+    () => ({
+      id: 1,
+      name: 'Dr. Aanya Sharma',
+      age: 38,
+      specialization: 'Cardiologist',
+      experience: '12 years',
+    }),
+    []
+  )
+
+  const doctor = state?.doctor ?? fallbackDoctor
+
+  const [selectedDate, setSelectedDate] = useState('')
+  const [selectedSlot, setSelectedSlot] = useState('')
+  const [reason, setReason] = useState('')
+
+  const slots = [
+    '09:00 AM',
+    '09:30 AM',
+    '10:00 AM',
+    '11:30 AM',
+    '01:00 PM',
+    '03:00 PM',
+    '04:30 PM',
+    '06:00 PM',
+  ]
+
+  const handleAppointment = (event) => {
+    event.preventDefault()
+    if (!selectedDate || !selectedSlot) return
+
+    navigate('/patient/confirmation', {
+      state: {
+        doctor,
+        date: selectedDate,
+        slot: selectedSlot,
+        reason,
+      },
+    })
+  }
+
+  return (
+    <section className="min-h-dvh px-4 py-8 sm:px-6 lg:px-8">
+      <div className="mx-auto w-full max-w-5xl">
+        <header className="mb-4 flex flex-wrap items-center justify-between gap-3">
+          <h1 className="text-3xl font-bold text-slate-900 sm:text-4xl">Book Appointment</h1>
+          <Link
+            to="/patient/doctors"
+            className="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700 transition hover:border-slate-400 hover:text-slate-900"
+          >
+            Back to Doctors
+          </Link>
+        </header>
+
+        <div className="grid gap-4 lg:grid-cols-[0.95fr_1.05fr]">
+          <article className="rounded-3xl border border-slate-200 bg-white p-6 shadow-xl shadow-slate-900/10">
+            <p className="mb-2 inline-flex rounded-full bg-teal-100 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-teal-700">
+              Selected Doctor
+            </p>
+            <h2 className="text-2xl font-bold text-slate-900">{doctor.name}</h2>
+            <div className="mt-4 space-y-2 text-sm text-slate-600">
+              <p>
+                <span className="font-semibold text-slate-700">Age:</span> {doctor.age}
+              </p>
+              <p>
+                <span className="font-semibold text-slate-700">Specialization:</span>{' '}
+                {doctor.specialization}
+              </p>
+              <p>
+                <span className="font-semibold text-slate-700">Experience:</span> {doctor.experience}
+              </p>
+            </div>
+
+            <div className="mt-6 rounded-2xl border border-teal-100 bg-teal-50/50 p-4 text-sm text-teal-900">
+              Choose a date and available slot, then confirm your appointment.
+            </div>
+          </article>
+
+          <article className="rounded-3xl border border-slate-200 bg-white p-6 shadow-xl shadow-slate-900/10">
+            <form onSubmit={handleAppointment} className="space-y-4">
+              <div>
+                <label htmlFor="appointmentDate" className="mb-1 block text-sm font-medium text-slate-700">
+                  Appointment Date
+                </label>
+                <input
+                  id="appointmentDate"
+                  type="date"
+                  value={selectedDate}
+                  min={new Date().toISOString().split('T')[0]}
+                  onChange={(event) => setSelectedDate(event.target.value)}
+                  className="w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-slate-800 outline-none ring-teal-200 transition focus:border-teal-600 focus:ring-4"
+                  required
+                />
+              </div>
+
+              <div>
+                <p className="mb-2 block text-sm font-medium text-slate-700">Available Time Slots</p>
+                <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
+                  {slots.map((slot) => {
+                    const active = selectedSlot === slot
+                    return (
+                      <button
+                        key={slot}
+                        type="button"
+                        onClick={() => setSelectedSlot(slot)}
+                        className={`rounded-xl px-3 py-2 text-sm font-semibold transition ${
+                          active
+                            ? 'bg-teal-600 text-white'
+                            : 'border border-slate-300 bg-white text-slate-700 hover:border-teal-400 hover:text-teal-700'
+                        }`}
+                      >
+                        {slot}
+                      </button>
+                    )
+                  })}
+                </div>
+              </div>
+
+              <div>
+                <label htmlFor="reason" className="mb-1 block text-sm font-medium text-slate-700">
+                  Reason for Visit (optional)
+                </label>
+                <textarea
+                  id="reason"
+                  rows={3}
+                  value={reason}
+                  onChange={(event) => setReason(event.target.value)}
+                  placeholder="Briefly describe symptoms or consultation reason"
+                  className="w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-slate-800 outline-none ring-teal-200 transition focus:border-teal-600 focus:ring-4"
+                />
+              </div>
+
+              <button
+                type="submit"
+                disabled={!selectedDate || !selectedSlot}
+                className="w-full rounded-xl bg-gradient-to-r from-teal-600 to-teal-700 px-4 py-2.5 font-semibold text-white shadow-lg shadow-teal-700/25 transition hover:from-teal-700 hover:to-teal-800 disabled:cursor-not-allowed disabled:opacity-60"
+              >
+                Confirm Appointment
+              </button>
+            </form>
+          </article>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+export default AppointmnentPage

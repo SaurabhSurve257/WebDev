@@ -1,43 +1,30 @@
 import {Router} from "express";
+import {
+  getAllDoctorsController,
+  getDoctorByIdController,
+  createDoctorController,
+  updateDoctorController,
+  deleteDoctorController,
+} from "../controller/doctorController.js";
+import { authorizeRoles, verifyAdmin } from "../middleware/authoraization.js";
+import { validateCreateDoctorBody, validateUpdateDoctorBody } from "../middleware/doctorMiddleware.js";
 
 const doctorRouter = Router();
+const verifyAuthenticatedUser = authorizeRoles("patient", "doctor", "admin");
 
 // GET /doctors - Get all doctors (admin only)
-doctorRouter.get("/", (req, res) => {
-  // TODO: Add verifyAdmin middleware
-  // Controller: getAllDoctors
-  res.status(200).json({ message: "Get all doctors" });
-});
+doctorRouter.get("/", verifyAdmin, getAllDoctorsController);
 
 // GET /doctors/:id - Get a specific doctor by ID
-doctorRouter.get("/:id", (req, res) => {
-  // TODO: Add verifyToken middleware (if required)
-  // Controller: getDoctorById
-  const { id } = req.params;
-  res.status(200).json({ message: `Get doctor with id: ${id}` });
-});
+doctorRouter.get("/:id", verifyAuthenticatedUser, getDoctorByIdController);
 
-// POST /doctors - Create a new doctor
-doctorRouter.post("/", (req, res) => {
-  // TODO: Add verifyToken middleware (if required)
-  // Controller: createDoctor
-  res.status(201).json({ message: "Doctor created successfully" });
-});
+// POST /doctors - Create a new doctor (admin only)
+doctorRouter.post("/", verifyAdmin, validateCreateDoctorBody, createDoctorController);
 
 // PUT /doctors/:id - Update a doctor's information
-doctorRouter.put("/:id", (req, res) => {
-  // TODO: Add verifyToken middleware
-  // Controller: updateDoctor
-  const { id } = req.params;
-  res.status(200).json({ message: `Doctor with id: ${id} updated successfully` });
-});
+doctorRouter.put("/:id", verifyAuthenticatedUser, validateUpdateDoctorBody, updateDoctorController);
 
 // DELETE /doctors/:id - Delete a doctor (admin only)
-doctorRouter.delete("/:id", (req, res) => {
-  // TODO: Add verifyAdmin middleware
-  // Controller: deleteDoctor
-  const { id } = req.params;
-  res.status(200).json({ message: `Doctor with id: ${id} deleted successfully` });
-});
+doctorRouter.delete("/:id", verifyAdmin, deleteDoctorController);
 
 export default doctorRouter;
