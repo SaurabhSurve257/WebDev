@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { clearAuthSession, getStoredSession } from '../../api/auth'
 import { getAllDoctors } from '../../api/doctorApi'
 
 const DoctorListing = () => {
@@ -17,13 +18,7 @@ const DoctorListing = () => {
       setError('')
 
       try {
-        const tokenCandidates = [
-          localStorage.getItem('adminToken'),
-          localStorage.getItem('doctorToken'),
-          localStorage.getItem('patientToken'),
-          localStorage.getItem('token'),
-        ]
-        const token = tokenCandidates.find(Boolean)
+        const { token } = getStoredSession()
 
         const response = await getAllDoctors(token)
         const doctorsList = Array.isArray(response) ? response : []
@@ -55,11 +50,19 @@ const DoctorListing = () => {
         id: doctor._id || doctor.id,
         name: doctor.name || 'Doctor',
         age: doctor.age ?? 'N/A',
+        contactNumber: doctor.contactNumber || 'N/A',
+        address: doctor.address || 'N/A',
         specialization: doctor.specialization || 'General',
         experience:
           typeof doctor.experience === 'number'
             ? `${doctor.experience} years`
             : doctor.experience || 'N/A',
+        availableTimeSlots: Array.isArray(doctor?.timeSlots?.availableTimeSlots)
+          ? doctor.timeSlots.availableTimeSlots
+          : [],
+        bookedTimeSlots: Array.isArray(doctor?.timeSlots?.bookedTimeSlots)
+          ? doctor.timeSlots.bookedTimeSlots
+          : [],
         raw: doctor,
       })),
     [doctors]
@@ -102,6 +105,7 @@ const DoctorListing = () => {
             </Link>
             <Link
               to="/login"
+              onClick={clearAuthSession}
               className="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:border-slate-400 hover:text-slate-900"
             >
               Back to Login
@@ -139,6 +143,22 @@ const DoctorListing = () => {
                 <p>
                   <span className="font-semibold text-slate-700">Experience:</span>{' '}
                   {doctor.experience}
+                </p>
+                <p>
+                  <span className="font-semibold text-slate-700">Contact:</span>{' '}
+                  {doctor.contactNumber}
+                </p>
+                <p>
+                  <span className="font-semibold text-slate-700">Address:</span>{' '}
+                  {doctor.address}
+                </p>
+                <p>
+                  <span className="font-semibold text-emerald-700">Available Slots:</span>{' '}
+                  {doctor.availableTimeSlots.length}
+                </p>
+                <p>
+                  <span className="font-semibold text-rose-700">Booked Slots:</span>{' '}
+                  {doctor.bookedTimeSlots.length}
                 </p>
               </div>
 

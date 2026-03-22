@@ -1,5 +1,4 @@
-const API_BASE_URL =
-	import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000/api'
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '/api'
 
 const buildHeaders = (token, hasBody = false) => {
 	const headers = {}
@@ -47,7 +46,7 @@ export const getPatientById = (id, token) =>
 		token,
 	})
 
-// POST /patients - Create a new patient (admin only)
+// POST /patients - Create a new patient
 export const createPatient = (patientData, token) =>
 	request('/patients', {
 		method: 'POST',
@@ -70,7 +69,7 @@ export const deletePatient = (id, token) =>
 		token,
 	})
 
-const patientApi = {
+const patientsApi = {
 	getAllPatients,
 	getPatientById,
 	createPatient,
@@ -78,4 +77,4 @@ const patientApi = {
 	deletePatient,
 }
 
-export default patientApi
+export default patientsApi

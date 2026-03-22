@@ -1,30 +1,75 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { clearAuthSession, loginUser, persistAuthSession } from '../api/auth'
 
 const Login = () => {
+  const navigate = useNavigate()
   const [role, setRole] = useState('doctor')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState('')
 
   const roleConfig = {
     doctor: {
       title: 'Doctor Login',
       subtitle: 'Access your appointment queue and patient records.',
-      idLabel: 'Medical Registration Number',
-      idPlaceholder: 'Enter medical registration number',
       action: 'Login as Doctor',
     },
     patient: {
       title: 'Patient Login',
       subtitle: 'Track bookings, updates, and upcoming appointments.',
-      idLabel: 'Patient ID',
-      idPlaceholder: 'Enter patient id',
       action: 'Login as Patient',
     },
   }
 
   const selected = roleConfig[role]
 
-  const handleSubmit = (event) => {
+  const redirectByRole = (selectedRole) => {
+    if (selectedRole === 'doctor') {
+      navigate('/doctor/appointments')
+      return
+    }
+
+    navigate('/patient/doctors')
+  }
+
+  const handleSubmit = async (event) => {
     event.preventDefault()
+    setError('')
+
+    if (!email.trim() || !password.trim() || !role) {
+      setError('Email, password and role are required.')
+      return
+    }
+
+    try {
+      setIsLoading(true)
+      clearAuthSession()
+      const data = await loginUser({ email, password, role })
+
+      if (!data?.token) {
+        throw new Error('Token not received from server')
+      }
+
+      persistAuthSession({
+        token: data.token,
+        role,
+        email,
+        userId: data.userId,
+        doctorId: data.doctorId,
+        patientId: data.patientId,
+        adminId: data.adminId,
+      })
+
+      redirectByRole(role)
+    } catch (requestError) {
+      const apiMessage = requestError?.response?.data?.message
+      const fallbackMessage = requestError?.message || 'Login failed. Please try again.'
+      setError(apiMessage || fallbackMessage)
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   return (
@@ -93,19 +138,8 @@ const Login = () => {
                 id="email"
                 type="email"
                 placeholder="Enter your email"
-                className="w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-slate-800 outline-none ring-teal-200 transition focus:border-teal-600 focus:ring-4"
-                required
-              />
-            </div>
-
-            <div>
-              <label htmlFor="roleId" className="mb-1 block text-sm font-medium text-slate-700">
-                {selected.idLabel}
-              </label>
-              <input
-                id="roleId"
-                type="text"
-                placeholder={selected.idPlaceholder}
+                value={email}
+                onChange={(event) => setEmail(event.target.value)}
                 className="w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-slate-800 outline-none ring-teal-200 transition focus:border-teal-600 focus:ring-4"
                 required
               />
@@ -119,10 +153,20 @@ const Login = () => {
                 id="password"
                 type="password"
                 placeholder="Enter your password"
+                value={password}
+                onChange={(event) => setPassword(event.target.value)}
                 className="w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-slate-800 outline-none ring-teal-200 transition focus:border-teal-600 focus:ring-4"
                 required
               />
             </div>
+
+            <input type="hidden" value={role} readOnly />
+
+            {error ? (
+              <p className="rounded-xl border border-rose-200 bg-rose-50 px-3 py-2 text-sm text-rose-700">
+                {error}
+              </p>
+            ) : null}
 
             <div className="flex items-center justify-between gap-3 text-sm">
               <label className="inline-flex items-center gap-2 text-slate-600">
@@ -136,9 +180,10 @@ const Login = () => {
 
             <button
               type="submit"
+              disabled={isLoading}
               className="w-full rounded-xl bg-gradient-to-r from-teal-600 to-teal-700 px-4 py-2.5 font-semibold text-white shadow-lg shadow-teal-700/25 transition hover:from-teal-700 hover:to-teal-800"
             >
-              {selected.action}
+              {isLoading ? 'Signing in...' : selected.action}
             </button>
           </form>
 

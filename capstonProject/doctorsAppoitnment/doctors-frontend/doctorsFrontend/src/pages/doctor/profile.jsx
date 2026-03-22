@@ -1,43 +1,156 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { getStoredSession } from '../../api/auth'
+import { getDoctorById, updateDoctor } from '../../api/doctorApi'
 
 const DoctorProfile = () => {
-	const initialProfile = useMemo(
-		() => ({
-			fullName: 'Dr. Aanya Sharma',
-			age: '38',
-			specialization: 'Cardiologist',
-			experience: '12',
-			qualification: 'MD - Cardiology',
-			hospital: 'City Care Multispeciality Hospital',
-			phone: '+91 98765 43210',
-			email: 'dr.aanya@caremail.com',
-			consultationFee: '900',
-			availableFrom: '09:00',
-			availableTo: '17:00',
-			bio: 'Focused on preventive cardiology and long-term heart wellness plans.',
-		}),
-		[]
-	)
+	const emptyProfile = {
+		name: '',
+		email: '',
+		age: '',
+		contactNumber: '',
+		specialization: '',
+		experience: '',
+		address: '',
+	}
 
-	const [formData, setFormData] = useState(initialProfile)
+	const [formData, setFormData] = useState(emptyProfile)
+	const [initialProfile, setInitialProfile] = useState(emptyProfile)
 	const [isEditing, setIsEditing] = useState(false)
 	const [statusMessage, setStatusMessage] = useState('')
+	const [error, setError] = useState('')
+	const [isLoading, setIsLoading] = useState(true)
+	const [isSaving, setIsSaving] = useState(false)
+
+	const mapDoctorToForm = (doctor) => ({
+		name: doctor?.name || '',
+		email: doctor?.email || '',
+		age: doctor?.age !== undefined && doctor?.age !== null ? String(doctor.age) : '',
+		contactNumber: doctor?.contactNumber || '',
+		specialization: doctor?.specialization || '',
+		experience:
+			doctor?.experience !== undefined && doctor?.experience !== null
+				? String(doctor.experience)
+				: '',
+		address: doctor?.address || '',
+	})
+
+	const getSession = () => {
+		const { doctorId, token, userId } = getStoredSession()
+
+		return { doctorId: doctorId || userId, token }
+	}
+
+	useEffect(() => {
+		let isMounted = true
+
+		const fetchDoctorProfile = async () => {
+			setIsLoading(true)
+			setError('')
+
+			try {
+				const { doctorId, token } = getSession()
+
+				if (!doctorId || !token) {
+					throw new Error('Doctor session not found. Please login again.')
+				}
+
+				const doctor = await getDoctorById(doctorId, token)
+				const mappedProfile = mapDoctorToForm(doctor)
+
+				if (isMounted) {
+					setFormData(mappedProfile)
+					setInitialProfile(mappedProfile)
+				}
+			} catch (requestError) {
+				if (isMounted) {
+					setError(requestError.message || 'Failed to load doctor profile.')
+				}
+			} finally {
+				if (isMounted) {
+					setIsLoading(false)
+				}
+			}
+		}
+
+		fetchDoctorProfile()
+
+		return () => {
+			isMounted = false
+		}
+	}, [])
 
 	const handleChange = (event) => {
 		const { name, value } = event.target
 		setFormData((previous) => ({ ...previous, [name]: value }))
 	}
 
-	const handleSave = (event) => {
+	const handleSave = async (event) => {
 		event.preventDefault()
-		setIsEditing(false)
-		setStatusMessage('Profile updated successfully.')
+		setStatusMessage('')
+		setError('')
+
+		if (
+			!formData.name.trim() ||
+			!formData.email.trim() ||
+			!formData.contactNumber.trim() ||
+			!formData.specialization.trim() ||
+			!formData.address.trim()
+		) {
+			setError('Name, email, contact number, specialization, and address are required.')
+			return
+		}
+
+		const ageValue = Number(formData.age)
+		const experienceValue = Number(formData.experience)
+
+		if (Number.isNaN(ageValue) || ageValue <= 0) {
+			setError('Age must be a positive number.')
+			return
+		}
+
+		if (Number.isNaN(experienceValue) || experienceValue < 0) {
+			setError('Experience must be a non-negative number.')
+			return
+		}
+
+		try {
+			setIsSaving(true)
+			const { doctorId, token } = getSession()
+
+			if (!doctorId || !token) {
+				throw new Error('Doctor session not found. Please login again.')
+			}
+
+			const payload = {
+				name: formData.name.trim(),
+				email: formData.email.trim(),
+				age: ageValue,
+				contactNumber: formData.contactNumber.trim(),
+				specialization: formData.specialization.trim(),
+				experience: experienceValue,
+				address: formData.address.trim(),
+			}
+
+			const response = await updateDoctor(doctorId, payload, token)
+			const updatedDoctor = response?.doctor || payload
+			const mappedProfile = mapDoctorToForm(updatedDoctor)
+
+			setFormData(mappedProfile)
+			setInitialProfile(mappedProfile)
+			setIsEditing(false)
+			setStatusMessage(response?.message || 'Profile updated successfully.')
+		} catch (requestError) {
+			setError(requestError.message || 'Failed to update profile.')
+		} finally {
+			setIsSaving(false)
+		}
 	}
 
 	const handleCancel = () => {
 		setFormData(initialProfile)
 		setIsEditing(false)
+		setError('')
 		setStatusMessage('Changes discarded.')
 	}
 
@@ -82,19 +195,32 @@ const DoctorProfile = () => {
 					</div>
 				)}
 
+				{error && (
+					<div className="mb-4 rounded-xl border border-rose-200 bg-rose-50 px-4 py-2 text-sm font-medium text-rose-800">
+						{error}
+					</div>
+				)}
+
+				{isLoading ? (
+					<div className="rounded-xl border border-slate-200 bg-slate-50 px-4 py-8 text-center text-slate-600">
+						Loading doctor profile...
+					</div>
+				) : (
+
 				<form onSubmit={handleSave} className="space-y-5">
 					<div className="grid gap-4 sm:grid-cols-2">
 						<div>
-							<label htmlFor="fullName" className="mb-1 block text-sm font-medium text-slate-700">
+							<label htmlFor="name" className="mb-1 block text-sm font-medium text-slate-700">
 								Full Name
 							</label>
 							<input
-								id="fullName"
-								name="fullName"
-								value={formData.fullName}
+								id="name"
+								name="name"
+								value={formData.name}
 								onChange={handleChange}
 								disabled={!isEditing}
 								className="w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-slate-800 outline-none ring-teal-200 transition disabled:bg-slate-100 disabled:text-slate-500 focus:border-teal-600 focus:ring-4"
+								required
 							/>
 						</div>
 
@@ -106,11 +232,12 @@ const DoctorProfile = () => {
 								id="age"
 								name="age"
 								type="number"
-								min="0"
+								min="1"
 								value={formData.age}
 								onChange={handleChange}
 								disabled={!isEditing}
 								className="w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-slate-800 outline-none ring-teal-200 transition disabled:bg-slate-100 disabled:text-slate-500 focus:border-teal-600 focus:ring-4"
+								required
 							/>
 						</div>
 
@@ -125,6 +252,7 @@ const DoctorProfile = () => {
 								onChange={handleChange}
 								disabled={!isEditing}
 								className="w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-slate-800 outline-none ring-teal-200 transition disabled:bg-slate-100 disabled:text-slate-500 focus:border-teal-600 focus:ring-4"
+								required
 							/>
 						</div>
 
@@ -141,48 +269,22 @@ const DoctorProfile = () => {
 								onChange={handleChange}
 								disabled={!isEditing}
 								className="w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-slate-800 outline-none ring-teal-200 transition disabled:bg-slate-100 disabled:text-slate-500 focus:border-teal-600 focus:ring-4"
+								required
 							/>
 						</div>
 
 						<div>
-							<label htmlFor="qualification" className="mb-1 block text-sm font-medium text-slate-700">
-								Qualification
-							</label>
-							<input
-								id="qualification"
-								name="qualification"
-								value={formData.qualification}
-								onChange={handleChange}
-								disabled={!isEditing}
-								className="w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-slate-800 outline-none ring-teal-200 transition disabled:bg-slate-100 disabled:text-slate-500 focus:border-teal-600 focus:ring-4"
-							/>
-						</div>
-
-						<div>
-							<label htmlFor="hospital" className="mb-1 block text-sm font-medium text-slate-700">
-								Hospital / Clinic
-							</label>
-							<input
-								id="hospital"
-								name="hospital"
-								value={formData.hospital}
-								onChange={handleChange}
-								disabled={!isEditing}
-								className="w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-slate-800 outline-none ring-teal-200 transition disabled:bg-slate-100 disabled:text-slate-500 focus:border-teal-600 focus:ring-4"
-							/>
-						</div>
-
-						<div>
-							<label htmlFor="phone" className="mb-1 block text-sm font-medium text-slate-700">
+							<label htmlFor="contactNumber" className="mb-1 block text-sm font-medium text-slate-700">
 								Phone Number
 							</label>
 							<input
-								id="phone"
-								name="phone"
-								value={formData.phone}
+								id="contactNumber"
+								name="contactNumber"
+								value={formData.contactNumber}
 								onChange={handleChange}
 								disabled={!isEditing}
 								className="w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-slate-800 outline-none ring-teal-200 transition disabled:bg-slate-100 disabled:text-slate-500 focus:border-teal-600 focus:ring-4"
+								required
 							/>
 						</div>
 
@@ -198,69 +300,23 @@ const DoctorProfile = () => {
 								onChange={handleChange}
 								disabled={!isEditing}
 								className="w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-slate-800 outline-none ring-teal-200 transition disabled:bg-slate-100 disabled:text-slate-500 focus:border-teal-600 focus:ring-4"
+								required
 							/>
-						</div>
-
-						<div>
-							<label htmlFor="consultationFee" className="mb-1 block text-sm font-medium text-slate-700">
-								Consultation Fee
-							</label>
-							<input
-								id="consultationFee"
-								name="consultationFee"
-								type="number"
-								min="0"
-								value={formData.consultationFee}
-								onChange={handleChange}
-								disabled={!isEditing}
-								className="w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-slate-800 outline-none ring-teal-200 transition disabled:bg-slate-100 disabled:text-slate-500 focus:border-teal-600 focus:ring-4"
-							/>
-						</div>
-
-						<div className="grid gap-3 grid-cols-2">
-							<div>
-								<label htmlFor="availableFrom" className="mb-1 block text-sm font-medium text-slate-700">
-									Available From
-								</label>
-								<input
-									id="availableFrom"
-									name="availableFrom"
-									type="time"
-									value={formData.availableFrom}
-									onChange={handleChange}
-									disabled={!isEditing}
-									className="w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-slate-800 outline-none ring-teal-200 transition disabled:bg-slate-100 disabled:text-slate-500 focus:border-teal-600 focus:ring-4"
-								/>
-							</div>
-							<div>
-								<label htmlFor="availableTo" className="mb-1 block text-sm font-medium text-slate-700">
-									Available To
-								</label>
-								<input
-									id="availableTo"
-									name="availableTo"
-									type="time"
-									value={formData.availableTo}
-									onChange={handleChange}
-									disabled={!isEditing}
-									className="w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-slate-800 outline-none ring-teal-200 transition disabled:bg-slate-100 disabled:text-slate-500 focus:border-teal-600 focus:ring-4"
-								/>
-							</div>
 						</div>
 					</div>
 
 					<div>
-						<label htmlFor="bio" className="mb-1 block text-sm font-medium text-slate-700">
-							Professional Bio
+						<label htmlFor="address" className="mb-1 block text-sm font-medium text-slate-700">
+							Address
 						</label>
-						<textarea
-							id="bio"
-							name="bio"
-							rows={4}
-							value={formData.bio}
+						<input
+							id="address"
+							name="address"
+							value={formData.address}
 							onChange={handleChange}
 							disabled={!isEditing}
 							className="w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-slate-800 outline-none ring-teal-200 transition disabled:bg-slate-100 disabled:text-slate-500 focus:border-teal-600 focus:ring-4"
+							required
 						/>
 					</div>
 
@@ -275,13 +331,15 @@ const DoctorProfile = () => {
 							</button>
 							<button
 								type="submit"
+								disabled={isSaving}
 								className="rounded-xl bg-gradient-to-r from-teal-600 to-teal-700 px-4 py-2 font-semibold text-white shadow-lg shadow-teal-700/25 transition hover:from-teal-700 hover:to-teal-800"
 							>
-								Save Changes
+								{isSaving ? 'Saving...' : 'Save Changes'}
 							</button>
 						</div>
 					)}
 				</form>
+				)}
 			</div>
 		</section>
 	)

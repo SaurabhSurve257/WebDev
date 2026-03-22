@@ -11,18 +11,18 @@ import DoctorProfile from './pages/doctor/profile'
 const App = () => {
   return (
     <div>
-      <Routes>
-        <Route path="/" element={<Navigate to="/login" replace />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<SignUp />} />
-        <Route path="/patient/doctors" element={<DoctorListing />} />
-        <Route path="/patient/appointment" element={<AppointmnentPage />} />
-        <Route path="/patient/confirmation" element={<ConfirmationPage />} />
-        <Route path="/patient/profile" element={<Profile />} />
-        <Route path="/doctor/appointments" element={<AppointmentDashbaord />} />
-        <Route path="/doctor/profile" element={<DoctorProfile />} />
-        <Route path="*" element={<Navigate to="/login" replace />} />
-      </Routes>
+        <Routes>
+          <Route path="/" element={<Navigate to="/login" replace />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<SignUp />} />
+          <Route path="/patient/doctors" element={<DoctorListing />} />
+          <Route path="/patient/appointment" element={<AppointmnentPage />} />
+          <Route path="/patient/confirmation" element={<ConfirmationPage />} />
+          <Route path="/patient/profile" element={<Profile />} />
+          <Route path="/doctor/appointments" element={<AppointmentDashbaord />} />
+          <Route path="/doctor/profile" element={<DoctorProfile />} />
+          <Route path="*" element={<Navigate to="/login" replace />} />
+        </Routes>
     </div>
   )
 }
