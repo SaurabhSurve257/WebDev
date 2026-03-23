@@ -3,7 +3,7 @@ import Doctor from "../model/doctorModel.js";
 
 const getAllDoctorsService = async () => {
     try {
-        const doctors = await Doctor.find();
+        const doctors = await Doctor.find().select("-password");
         return doctors;
     } catch (error) {
         throw error;
@@ -12,7 +12,7 @@ const getAllDoctorsService = async () => {
 
 const getDoctorByIdService = async (id) => {
     try {
-        const doctor = await Doctor.findById(id);
+        const doctor = await Doctor.findById(id).select("-password");
         if (!doctor) {
             throw new Error("Doctor not found");
         }
@@ -34,7 +34,7 @@ const createDoctorService = async (doctorData) => {
 
 const updateDoctorService = async (id, doctorData) => {
     try {
-        const updatedDoctor = await Doctor.findByIdAndUpdate(id, doctorData, { new: true });
+        const updatedDoctor = await Doctor.findByIdAndUpdate(id, doctorData, { new: true }).select("-password");
         if (!updatedDoctor) {
             throw new Error("Doctor not found");
         }

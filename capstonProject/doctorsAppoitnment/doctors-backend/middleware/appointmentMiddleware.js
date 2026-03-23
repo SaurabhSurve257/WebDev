@@ -12,7 +12,7 @@ const isValidDateValue = (value) => {
 const isValidObjectId = (id) => isNonEmptyString(id) && mongoose.Types.ObjectId.isValid(id);
 
 const validateCreateAppointmentBody = (req, res, next) => {
-	const { patientId, doctorId, appointmentDate, appointmentTime, status } = req.body;
+	const { patientId, doctorId, appointmentDate, appointmentTime, reason, status } = req.body;
 
 	if (
 		!isValidObjectId(patientId) ||
@@ -33,12 +33,19 @@ const validateCreateAppointmentBody = (req, res, next) => {
 		});
 	}
 
+	if (reason !== undefined && !isNonEmptyString(reason)) {
+		return res.status(400).json({
+			message: "Invalid request body",
+			error: "reason must be a non-empty string when provided",
+		});
+	}
+
 	next();
 };
 
 const validateUpdateAppointmentBody = (req, res, next) => {
 	const updates = req.body;
-	const allowedFields = ["patientId", "doctorId", "appointmentDate", "appointmentTime", "status"];
+	const allowedFields = ["patientId", "doctorId", "appointmentDate", "appointmentTime", "reason", "status"];
 	const keys = Object.keys(updates);
 
 	if (keys.length === 0) {
@@ -75,6 +82,13 @@ const validateUpdateAppointmentBody = (req, res, next) => {
 		return res.status(400).json({
 			message: "Invalid request body",
 			error: "appointmentTime must be a non-empty string",
+		});
+	}
+
+	if (updates.reason !== undefined && !isNonEmptyString(updates.reason)) {
+		return res.status(400).json({
+			message: "Invalid request body",
+			error: "reason must be a non-empty string",
 		});
 	}
 

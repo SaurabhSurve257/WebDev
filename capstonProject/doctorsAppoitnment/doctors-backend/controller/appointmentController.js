@@ -1,5 +1,6 @@
 import {
 	getAllAppointmentsService,
+	getAppointmentsByDoctorIdService,
 	getAppointmentByIdService,
 	createAppointmentService,
 	updateAppointmentService,
@@ -24,6 +25,16 @@ const getAppointmentByIdController = async (req, res) => {
 		const statusCode = error.message === "Appointment not found" ? 404 : 500;
 		const message = error.message === "Appointment not found" ? "Appointment not found" : "Failed to fetch appointment";
 		res.status(statusCode).json({ message, error: error.message });
+	}
+};
+
+const getAppointmentsByDoctorIdController = async (req, res) => {
+	try {
+		const { doctorId } = req.params;
+		const appointments = await getAppointmentsByDoctorIdService(doctorId);
+		res.status(200).json(appointments);
+	} catch (error) {
+		res.status(500).json({ message: "Failed to fetch doctor appointments", error: error.message });
 	}
 };
 
@@ -64,6 +75,7 @@ const deleteAppointmentController = async (req, res) => {
 
 export {
 	getAllAppointmentsController,
+	getAppointmentsByDoctorIdController,
 	getAppointmentByIdController,
 	createAppointmentController,
 	updateAppointmentController,

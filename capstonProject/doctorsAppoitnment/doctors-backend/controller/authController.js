@@ -1,4 +1,4 @@
-import { loginService, registerDoctorService, registerPatientService } from "../service/authService.js";
+import { loginService, registerAdminService, registerDoctorService, registerPatientService } from "../service/authService.js";
 
 const loginController = async (req, res) => {
     try {
@@ -7,7 +7,14 @@ const loginController = async (req, res) => {
         res.status(200).json(result);
     }
     catch (error) {
-        res.status(500).json({ message: "Login failed", error: error.message });
+        const statusCode =
+            error.message === "User not found" ||
+            error.message === "Invalid credentials" ||
+            error.message === "Invalid role specified"
+                ? 401
+                : 500;
+
+        res.status(statusCode).json({ message: "Login failed", error: error.message });
     }
 }
 
@@ -21,12 +28,24 @@ const regsiterController = async (req, res) => {
         } else if (role === "doctor") {
             const result = await registerDoctorService(data);
             res.status(201).json(result);
+        } else if (role === "admin") {
+            const result = await registerAdminService(data);
+            res.status(201).json(result);
         } else {
             res.status(400).json({ message: "Invalid role specified" });
         }
     }
     catch (error) {
-        res.status(500).json({ message: "Registration failed", error: error.message });
+        const statusCode =
+            error.message === "Email already in use"
+                ? 409
+                : error.name === "ValidationError"
+                    ? 400
+                    : error.code === 11000
+                        ? 409
+                        : 500;
+
+        res.status(statusCode).json({ message: "Registration failed", error: error.message });
     }
 }
 

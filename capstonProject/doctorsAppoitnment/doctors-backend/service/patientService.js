@@ -3,7 +3,7 @@ import Patient from "../model/patientModel.js";
 
 const getAllPatientsService = async () => {
     try {
-        const patients = await Patient.find();
+        const patients = await Patient.find().select("-password");
         return patients;
     } catch (error) {
         throw error;
@@ -12,7 +12,7 @@ const getAllPatientsService = async () => {
 
 const getPatientByIdService = async (id) => {
     try {
-        const patient = await Patient.findById(id);
+        const patient = await Patient.findById(id).select("-password");
         if (!patient) {
             throw new Error("Patient not found");
         }
@@ -34,7 +34,7 @@ const createPatientService = async (patientData) => {
 
 const updatePatientService = async (id, patientData) => {
     try {
-        const updatedPatient = await Patient.findByIdAndUpdate(id, patientData, { new: true });
+        const updatedPatient = await Patient.findByIdAndUpdate(id, patientData, { new: true }).select("-password");
         if (!updatedPatient) {
             throw new Error("Patient not found");
         }

@@ -3,6 +3,8 @@ import Patient from "../model/patientModel.js";
 import Doctor from "../model/doctorModel.js";
 import Admin from "../model/adminModel.js";
 
+const getJwtSecret = () => process.env.JWT_SECRET || process.env.jwtSecretKey;
+
 const getTokenFromHeader = (req) => {
 	const authHeader = req.headers.authorization;
 
@@ -41,7 +43,16 @@ const authorizeRoles = (...allowedRoles) => {
 				});
 			}
 
-			const decoded = jwt.verify(token, process.env.JWT_SECRET);
+			const jwtSecret = getJwtSecret();
+
+			if (!jwtSecret) {
+				return res.status(500).json({
+					message: "Authorization process failed",
+					error: "JWT secret is not configured",
+				});
+			}
+
+			const decoded = jwt.verify(token, jwtSecret);
 			const { id, role } = decoded;
 
 			if (!id || !role) {

@@ -10,7 +10,7 @@ const Login = () => {
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState('')
 
-  const baseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000/api'
+  const baseUrl = import.meta.env.VITE_API_BASE_URL || '/api'
 
   const handleInputChange = (event) => {
     const { name, value } = event.target
@@ -37,7 +37,7 @@ const Login = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          email: formData.email,
+          email: formData.email.trim().toLowerCase(),
           password: formData.password,
           role: 'admin',
         }),
@@ -46,13 +46,13 @@ const Login = () => {
       const payload = await response.json().catch(() => ({}))
 
       if (!response.ok) {
-        throw new Error(payload.message || 'Admin login failed.')
+        throw new Error(payload.error || payload.message || 'Admin login failed.')
       }
 
       if (payload.token) {
         localStorage.setItem('adminToken', payload.token)
       }
-      localStorage.setItem('adminEmail', formData.email)
+      localStorage.setItem('adminEmail', formData.email.trim().toLowerCase())
       navigate('/dashboard')
     } catch (requestError) {
       setError(requestError.message || 'Unable to login at the moment.')

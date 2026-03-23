@@ -12,8 +12,8 @@ import { validateCreateDoctorBody, validateUpdateDoctorBody } from "../middlewar
 const doctorRouter = Router();
 const verifyAuthenticatedUser = authorizeRoles("patient", "doctor", "admin");
 
-// GET /doctors - Get all doctors (admin only)
-doctorRouter.get("/", verifyAdmin, getAllDoctorsController);
+// GET /doctors - Get all doctors for authenticated users
+doctorRouter.get("/", authorizeRoles("patient", "doctor", "admin"), getAllDoctorsController);
 
 // GET /doctors/:id - Get a specific doctor by ID
 doctorRouter.get("/:id", verifyAuthenticatedUser, getDoctorByIdController);

@@ -86,7 +86,7 @@ const SignUp = () => {
 
     const payload = {
       name: formData.name.trim(),
-      email: formData.email.trim(),
+      email: formData.email.trim().toLowerCase(),
       age: parsedAge,
       contactNumber: formData.contactNumber.trim(),
       password: formData.password,
@@ -119,7 +119,7 @@ const SignUp = () => {
         navigate('/login')
       }, 1000)
     } catch (requestError) {
-      const apiMessage = requestError?.response?.data?.message
+      const apiMessage = requestError?.response?.data?.error || requestError?.response?.data?.message
       const fallbackMessage = requestError?.message || 'Signup failed. Please try again.'
       setError(apiMessage || fallbackMessage)
     } finally {

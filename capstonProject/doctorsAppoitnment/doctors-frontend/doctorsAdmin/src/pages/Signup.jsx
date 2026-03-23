@@ -13,7 +13,7 @@ const Signup = () => {
   const [error, setError] = useState('')
   const [success, setSuccess] = useState('')
 
-  const baseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000/api'
+  const baseUrl = import.meta.env.VITE_API_BASE_URL || '/api'
 
   const handleInputChange = (event) => {
     const { name, value } = event.target
@@ -51,8 +51,8 @@ const Signup = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
+          name: formData.name.trim(),
+          email: formData.email.trim().toLowerCase(),
           password: formData.password,
           role: 'admin',
         }),

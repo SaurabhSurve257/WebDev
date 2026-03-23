@@ -3,8 +3,21 @@ import Appointment from "../model/appointmentModel.js";
 
 const getAllAppointmentsService = async () => {
     try {
-        const appointments = await Appointment.find();
+        const appointments = await Appointment.find()
+            .populate("patientId", "-password")
+            .populate("doctorId", "-password");
         return appointments;
+    } catch (error) {
+        throw error;
+    }
+};
+
+const getAppointmentsByDoctorIdService = async (doctorId) => {
+    try {
+        return await Appointment.find({ doctorId })
+            .populate("patientId", "-password")
+            .populate("doctorId", "-password")
+            .sort({ appointmentDate: 1, appointmentTime: 1 });
     } catch (error) {
         throw error;
     }
@@ -12,7 +25,9 @@ const getAllAppointmentsService = async () => {
 
 const getAppointmentByIdService = async (id) => {
     try {
-        const appointment = await Appointment.findById(id);
+        const appointment = await Appointment.findById(id)
+            .populate("patientId", "-password")
+            .populate("doctorId", "-password");
         if (!appointment) {
             throw new Error("Appointment not found");
         }
@@ -26,7 +41,11 @@ const createAppointmentService = async (appointmentData) => {
     try {
         const newAppointment = new Appointment(appointmentData);
         await newAppointment.save();
-        return { message: "Appointment created successfully" };
+        const appointment = await Appointment.findById(newAppointment._id)
+            .populate("patientId", "-password")
+            .populate("doctorId", "-password");
+
+        return { message: "Appointment created successfully", appointment };
     } catch (error) {
         throw error;
     }
@@ -34,7 +53,9 @@ const createAppointmentService = async (appointmentData) => {
 
 const updateAppointmentService = async (id, appointmentData) => {
     try {
-        const updatedAppointment = await Appointment.findByIdAndUpdate(id, appointmentData, { new: true });
+        const updatedAppointment = await Appointment.findByIdAndUpdate(id, appointmentData, { new: true })
+            .populate("patientId", "-password")
+            .populate("doctorId", "-password");
         if (!updatedAppointment) {
             throw new Error("Appointment not found");
         }
@@ -58,6 +79,7 @@ const deleteAppointmentService = async (id) => {
 
 export {
     getAllAppointmentsService,
+    getAppointmentsByDoctorIdService,
     getAppointmentByIdService,
     createAppointmentService,
     updateAppointmentService,

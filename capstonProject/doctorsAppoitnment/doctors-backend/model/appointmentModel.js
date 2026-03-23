@@ -23,6 +23,11 @@ const appointmentSchema = new Schema(
 			required: true,
 			trim: true,
 		},
+		reason: {
+			type: String,
+			trim: true,
+			default: "",
+		},
 		status: {
 			type: String,
 			enum: ["scheduled", "completed", "cancelled"],
