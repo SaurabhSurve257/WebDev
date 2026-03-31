@@ -4,6 +4,7 @@ import {
 	createDoctorService,
 	updateDoctorService,
 	deleteDoctorService,
+	updateDoctorTimeSlotsService,
 } from "../service/doctorService.js";
 
 const getAllDoctorsController = async (req, res) => {
@@ -62,10 +63,29 @@ const deleteDoctorController = async (req, res) => {
 	}
 };
 
+const updateDoctorTimeSlotsController = async (req, res) => {
+	try {
+		const { id } = req.params;
+		const { timeSlots } = req.body;
+
+		if (!timeSlots || typeof timeSlots !== 'object') {
+			return res.status(400).json({ message: "Invalid time slots data" });
+		}
+
+		const result = await updateDoctorTimeSlotsService(id, timeSlots);
+		res.status(200).json(result);
+	} catch (error) {
+		const statusCode = error.message === "Doctor not found" ? 404 : 500;
+		const message = error.message === "Doctor not found" ? "Doctor not found" : "Failed to update time slots";
+		res.status(statusCode).json({ message, error: error.message });
+	}
+};
+
 export {
 	getAllDoctorsController,
 	getDoctorByIdController,
 	createDoctorController,
 	updateDoctorController,
 	deleteDoctorController,
+	updateDoctorTimeSlotsController,
 };

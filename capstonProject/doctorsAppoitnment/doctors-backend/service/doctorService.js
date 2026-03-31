@@ -56,10 +56,29 @@ const deleteDoctorService = async (id) => {
     }
 };
 
+const updateDoctorTimeSlotsService = async (id, timeSlots) => {
+    try {
+        const updatedDoctor = await Doctor.findByIdAndUpdate(
+            id,
+            { timeSlots },
+            { new: true }
+        ).select("-password");
+
+        if (!updatedDoctor) {
+            throw new Error("Doctor not found");
+        }
+
+        return { message: "Time slots updated successfully", doctor: updatedDoctor };
+    } catch (error) {
+        throw error;
+    }
+};
+
 export {
     getAllDoctorsService,
     getDoctorByIdService,
     createDoctorService,
     updateDoctorService,
     deleteDoctorService,
+    updateDoctorTimeSlotsService,
 };
