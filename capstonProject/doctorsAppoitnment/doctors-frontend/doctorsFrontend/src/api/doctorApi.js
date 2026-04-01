@@ -62,6 +62,14 @@ export const updateDoctor = (id, doctorData, token) =>
 		body: doctorData,
 	})
 
+// PUT /doctors/:id/timeSlots - Update doctor's available time slots
+export const updateDoctorTimeSlots = (id, timeSlots, token) =>
+	request(`/doctors/${id}/timeSlots`, {
+		method: 'PUT',
+		token,
+		body: { timeSlots },
+	})
+
 // DELETE /doctors/:id - Delete a doctor (admin only)
 export const deleteDoctor = (id, token) =>
 	request(`/doctors/${id}`, {
