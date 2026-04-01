@@ -2,7 +2,7 @@ import React from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
-import Dashbaord from './pages/Dashboard'
+import Dashboard from './pages/Dashboard'
 
 const ProtectedRoute = ({ children }) => {
   const token = localStorage.getItem('adminToken')
@@ -23,7 +23,7 @@ const App = () => {
         path="/dashboard"
         element={
           <ProtectedRoute>
-            <Dashbaord />
+            <Dashboard />
           </ProtectedRoute>
         }
       />
